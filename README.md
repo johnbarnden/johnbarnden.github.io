@@ -1,3 +1,2 @@
-I have just started constructing this repository. It will take me quite a while.
-So far I have only created the top page (index.html).
-Its links may not go anywhere!
+I have only recently started constructing this repository. It will take me quite a while to finish.
+Some links may not go anywhere!
