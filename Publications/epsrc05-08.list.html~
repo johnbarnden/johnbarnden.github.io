@@ -1,0 +1,576 @@
+<TITLE>Selected Publications: METAPHOR, from EPSRC Project 05-08</TITLE>
+
+
+<P><STRONG>This page contains publications on metaphor arising from
+grant EP/C538943/1 from the EPSRC (July 2005 - November 2008).</STRONG>
+
+<P>
+Please email me (<a
+HREF="mailto:J.A.Barnden@cs.bham.ac.uk">J.A.Barnden@cs.bham.ac.uk</a>)
+to request a paper for which there is no link or for further information.
+<P>
+
+<HR>
+
+
+<PRE> <FONT SIZE=4>
+
+</FONT></PRE>
+
+<H2> Externally Published</H2>
+
+<! TO ADD: Alan shambles for M&S; Alan chapter apres NDCL2>
+
+<! NOT TRNSFD>
+<STRONG>
+Agerri, R. (2007):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Discourse relations and default inferences in metaphor interpretation."
+
+   In M. Aurnague, K. Korta &amp; J.M. Larrazabal (Eds), 
+      <I>Language, Representation and Reasoning, 
+         Memorial Volume to Isabel Gomez Txurruka</I>,  pp. 13-33.
+      Donostia-San Sebastian: The University of the Basque Country Press.
+   ISBN: 978-84-9860-023-0
+
+   <A HREF=../ATT-Meta/Papers/agerri-andmetaphor.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Agerri, R. (2008):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Metaphor in Textual Entailment."
+
+   In <I>Companion Procs. of the 22nd Int. Conf. on Computational  Linguistics</I> (COLING 2008), 
+      Manchester, UK, pp.2-6.
+
+   <A HREF=http://www.aclweb.org/anthology-new/C/C08/C08-2001.pdf>online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Agerri, R. (2008):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Does blocking affect metaphor?"
+
+   In <I>Procs. of the International Workshop on Constraints in Discourse III</I>, pp.95-102,  
+       Postdam, Germany, 30 July - 1 August 2008. (Endorsed by ACL SIGSEM.)
+
+   <A HREF=http://www.constraints-in-discourse.org/cid08/CIDIII/cidproceedings.pdf>online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+<STRONG>
+Agerri, R., Barnden, J.A., Lee, M.G. &amp; Wallington, A.M. (2007):</STRONG> 
+
+   <PRE><FONT SIZE=4>   "Invariant mappings and contexts in a computational
+         approach to metaphor interpretation" 
+
+   In G. Sengupta, S. Paul, R. Narendranath &amp; R. Batchu (Eds),
+      <I>Procs. of the IJCAI-2007 Workshop on Modeling and Representation 
+            in Computational Semantics</I> (MRCS-07), 
+      pp.57-61. Hyberabad, India, January 2007.
+
+   <A HREF=../ATT-Meta/Papers/ijcai07wshop.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Agerri, R., Barnden, J.A., Lee, M.G. &amp; Wallington, A.M. (2007):</STRONG>
+
+   <PRE><FONT SIZE=4>   "View Neutral Mapping Adjuncts as Default Rules for Metaphor Interpretation."
+
+   In J. Gertzen, E. Thijsse, H. Bunt &amp; A. Schiffrin (Eds.), 
+      <I>Procs. of the Seventh Int. Workshop on Computational Semantics</I> (IWCS-7), 
+      pp.283-286, Tilburg University, Department of Communication and Information Sciences,
+      Tilburg, Netherlands, 10-12 January 2007. 
+      ISBN: 90-74029-31-0
+
+   <A HREF=../ATT-Meta/Papers/iwcs-7.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+<STRONG>
+Agerri, R. Barnden, J.A., Lee, M.G. &amp; Wallington, A.M. (2007):</STRONG> 
+
+   <PRE><FONT SIZE=4>   "Default inferences in metaphor interpretation."
+
+   In B. Kokinov, D.C. Richardson, T.R. Roth-Berghofer &amp; L. Vieu (Eds),
+      <I>Modelling and Using Context: 
+         6th International and Interdisciplinary Conference</I> (CONTEXT 2007),
+      pp.1-14.
+   Lecture Notes in Artificial Intelligence, Vol. 4635.
+   Springer.
+   ISSN: 0302-9743
+
+   <A HREF=../ATT-Meta/Papers/context07.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+<STRONG>
+Agerri, R. Barnden, J.A., Lee, M.G. &amp; Wallington, A.M. (2007):</STRONG> 
+
+   <PRE><FONT SIZE=4>   "Metaphor, inference and domain-independent mappings."
+
+   In G. Angelova, K. Bontcheva, R. Mitkov, Nicolas Nicolov &amp; Nikolai Nicolov (Eds),
+      <I>Procs. Int. Conference on Recent Advances in Natural Language Processing</I>
+      (RANLP-2007), pp.17-23.
+      Shoumen, Bulgaria: INCOMA Ltd.
+      ISBN 978-954-91743-7-3.
+
+   <A HREF=../ATT-Meta/Papers/ranlp07.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+<STRONG>
+Agerri, R. Barnden, J.A., Lee, M.G. &amp; Wallington, A.M. (2007):</STRONG> 
+
+   <PRE><FONT SIZE=4>   "On the formalization of invariant mappings for metaphor interpretation."
+
+   In <I>Procs. Forty-Fifth Annual Meeting of 
+      the Association for Computational Linguistics
+         (Companion Volume: Book II - Interactive Poster and Demonstration Sessions)</I>, 
+      pp.105-108.
+   The Association for Computational Linguistics.
+   ISBN: 978-1-932432-87-9
+
+   <A HREF=http://www.aclweb.org/anthology-new/P/P07/P07-2028.pdf>version in ACL anthology</A>
+   (NB: page numbers here are 109-112)
+
+   <A HREF=../ATT-Meta/Papers/acl07semantics.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Agerri, R., Barnden, J.A., Lee, M.G. &amp; Wallington, A.M. (2008):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Textual Entailment as an Evaluation Framework
+         for Metaphor Resolution: A Proposal."
+
+   In J. Bos &amp; R. Delmonte (eds.) (2008),
+      <I>Semantics in Text Processing: STEP 2008 Conference Proceedings.</I>
+   College Publications. 
+   ISBN: 978-1904987932.
+
+   <A HREF=http://www.aclweb.org/anthology-new/W/W08/W08-2228.pdf>online version</A>
+
+
+</FONT></PRE>
+
+
+
+<STRONG>
+Agerri, R., Barnden, J.A., Lee, M.G. &amp; Wallington, A.M. (in press):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Domain Independent Mappings and Source Domain Reasoning 
+         for the Semantics of Metaphor."
+
+   In N. Nicolov et al. (Eds.),
+      <I>Recent Advances in Natural Language Processing V.</I>
+      John Benjamins.
+
+   <A HREF=../ATT-Meta/Papers/chapter-apres-RANLP-07.1oct08.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+
+
+<STRONG>
+Barnden, J.A. (2006):</STRONG>
+<! based on AESLA-05 talk>
+
+   <PRE><FONT SIZE=4>   "Consequences for language learning of an AI approach to metaphor."
+
+   In J. Salazar, M. Amengual &amp; M. Juan (Eds),
+      <I>Usos Sociales del Lenguaje y Aspectos Psicolinguisticos: Perspectivas Aplicadas,</I> pp.15-57. 
+   Palma, Mallorca: Universitat de les Illes Baleares.
+   ISBN: 84-7632-961-X
+
+   <A HREF=../ATT-Meta/Papers/aesla05.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+<STRONG>
+Barnden, J.A. (2006):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Artificial intelligence, figurative language and cognitive linguistics."
+
+   In G. Kristiansen et al. (Eds),
+      <I>Cognitive Linguistics: Current Applications and Future Perspectives</I>, pp.431-459.
+      Berlin: Mouton de Gruyter.
+      ISBN-13: 978-3-11-018951-3    ISBN-10: 3-11-018951-8
+
+   <A HREF=../ATT-Meta/Papers/appliedCLflagship.06.doc>local online version (preprint)</A>
+
+
+</FONT></PRE>
+
+
+
+<STRONG>
+Barnden, J.A. (2007):</STRONG>
+
+<PRE><FONT SIZE=4>   "Metaphor, semantic preferences and context-sensitivity."
+
+   In K. Ahmad, C. Brewster &amp; M. Stevenson (Eds),
+      <I>Words and Intelligence II: Essays in Honor of Yorick Wilks,</I> pp.39-62. 
+   Dordrecht: Springer.
+   ISBN: 978-1-4020-5832-5 (hardback).
+   ISBN: 978-1-4020-5833-2 (e-book).
+
+   <A HREF=../ATT-Meta/Papers/wilksessay.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+<! NOT TRNSFD>
+<STRONG>
+Barnden, J.A. (2008):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Metaphor and artificial intelligence: Why they matter to each other."
+
+   In R.W. Gibbs, Jr. (Ed.), 
+      <I>The Cambridge Handbook of Metaphor and Thought</I>, 
+      pp.311-338. Cambridge, U.K.: Cambridge University Press.
+      ISBN-13: 978-0-521-84106-1 (hardback)
+      ISBN-13: 978-0-521-60086-6 (paperback)
+      ISBN-10:     0-521-60086-3 
+
+
+</FONT></PRE>
+
+
+
+<STRONG>
+Barnden, J.A. (2008):</STRONG>
+
+<PRE><FONT SIZE=4>   "Unparalleled creativity in metaphor."
+
+   In <I>Creative Intelligent Systems: Papers from 2008 AAAI Spring Symposium</I>
+      (Dan Ventura, Mary Lou Maher &amp; Simon Colton, Cochairs).
+   Technical Report SS-08-03.
+   Menlo Park, Calif., AAAI Press.
+
+   <A HREF=../ATT-Meta/Papers/aaai.SS08.creativity.paper.pdf>local online version</A>
+
+   <A 
+    HREF=../ATT-Meta/Papers/aaai.SS08.creativity.poster.ppt>associated poster presentation</A>
+
+
+</FONT></PRE>
+
+
+
+
+<STRONG>
+
+<! NOT TRNSFD>
+Barnden, J.A. (2009):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Metaphor and context: A perspective from artificial intelligence."
+
+   In A. Musolff &amp; J. Zinken (Eds), <I>Metaphor and Discourse</I>, pp.79-94. 
+      Palgrave Macmillan.
+   ISBN: 978-0-230-53730-9 hardback
+
+   <A HREF=../ATT-Meta/Papers/metaphor-and-discourse.18jan08.doc>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+<STRONG>
+Barnden, J.A. (2010):</STRONG>
+
+<PRE><FONT SIZE=4>   "Metaphor and metonymy: Making their connections more slippery."
+
+   <I>Cognitive Linguistics, 21</I>(1), pp.1-34
+
+   <A HREF=../ATT-Meta/Papers/cogling.slippery.jun09.pdf>local preprint</A>
+   <A
+   HREF=http://www.reference-global.com/doi/abs/10.1515/COGL.2010.001>publisher's online version</A>
+
+
+</FONT></PRE>
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Barnden, J.A. &amp; Wallington, A.M. (in press):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Metaphor and its unparalleled meaning and truth."
+
+   In A. Burkhardt &amp; B. Nerlich (Eds),
+      <I>Reflections on Tropical Truth: Studies on the Epistemology of Metaphor</I>. 
+      Max Niemeyer.
+
+   <A HREF=../ATT-Meta/Papers/tropical-truth-barnden-27feb09.doc>local online version</A>
+
+
+</FONT></PRE>
+
+
+<! NOT TRNSFD>
+<STRONG>Glasbey, S.R. (2007).</STRONG>  
+
+   <PRE><FONT SIZE=4>   "Aspectual composition in idioms."
+
+   In L. de Saussure, J. Moeschler and G. Puskas (Eds). 
+      <I> Recent Advances in the Syntax and Semantics of Tense, Aspect and Modality,</I> pp 71-88. 
+      Berlin, New York: Mouton de Gruyter.
+      ISBN: 978-3-11-019525-5 
+
+      <A HREF=../ATT-Meta/Papers/idioms-paper.pdf>local online version</A>
+      <A
+      HREF=http://www.degruyter.com/cont/fb/sp/detailEn.cfm?id=IS-9783110195255-1>book information</A>
+
+
+</FONT></PRE>
+      <! A HREF=http://www.cs.bham.ac.uk/~srg/Papers/idioms-paper.pdf>
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Lee, M.G. (2006):</STRONG> 
+
+   <PRE><FONT SIZE=4>   "On Counterfactual Metaphors and Paradox."
+
+   In J. Skilters (Ed.),
+      <I>The Baltic International Yearbook of Cognition, Logic and Communication, 1,</I> 
+      pp.95-109, University of Latvia Press.
+      ISBN: 9984783979
+
+   <A
+   HREF=http://www.cs.bham.ac.uk/~mgl/papers/paradox_latvia.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+<! NOT TRNSFD>
+<STRONG>
+Lee, M. (2006):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Methodological issues in building a corpus of 
+         doctor-patient dialogues annotated for metaphor". 
+
+   At <I>Second Int. Conf. of the German Cognitive Linguistics Assoc.</I>,
+      7 October 2006, Munich, Germany. (Abstract in Proceedings.)
+
+   <A HREF=http://www1.uni-hamburg.de/metaphern/GCLA06_Theme/Lee_GCLA06.pdf>online extended paper</A>
+
+
+</FONT></PRE>
+
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Lee, M. (in press):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Counterfactuals and Metaphor."
+
+   In A. Burkhardt &amp; B. Nerlich (Eds),
+      <I>Reflections on Tropical Truth: Studies on the Epistemology of Metaphor</I>. 
+      Max Niemeyer.
+
+   <A HREF=http://www.cs.bham.ac.uk/~mgl/tropical_truth/>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Wallington, A.M. (accepted):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Systematicity in metaphor and the use of invariant mappings."
+
+   In L. Cameron, A. Deignan, G. Low &amp; Z. Todd., 
+      volume of papers based on selected presentations at 
+      <I>Researching and Applying Metaphor</I> conference (RAAM-VI), 
+      Leeds, U.K., 2006.
+
+      <A HREF=../ATT-Meta/Papers/wallington-apresRAAM06-19feb09.rtf>local online version</A>
+
+
+</FONT></PRE>
+
+
+<! NOT TRNSFD>
+<STRONG>
+Wallington, A.M., Agerri, R., Barnden, J.A., S.G. Glasbey &amp; Lee, M.G. (2006):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Considerations on the nature of metaphorical meaning 
+         arising from a computational treatment of metaphor interpretation."
+
+   In J. Bos &amp; A. Koller (Eds),
+      <I>Procs. of the Int. Workshop on Inference in Computational Semantics</I> (ICoS-5), 
+      Buxton, England, April 2006.
+
+   <A HREF=http://www.aclweb.org/anthology-new/W/W06/W06-3912.pdf>online version</A>
+
+
+</FONT></PRE>
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Wallington, A.M., Agerri, R., Barnden, J.A., Lee, M.G. &amp; Rumbell, T. (2008):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Affect transfer by metaphor for an intelligent conversational agent."
+
+   In <I>Procs. LREC 2008 Workshop on Sentiment Analysis: 
+         Emotion, Metaphor, Ontology and Terminology</I> (EMOT 08),
+       pp.107-113. Marrakech, Morocco, 27 May 2008.
+   ISBN: 2951740840
+
+   Online version: 113-119 of PDF of workshop proceedings within <A
+   HREF=http://www.lrec-conf.org/proceedings/lrec2008/>LREC proceedings</A>.
+   <I>NB: you need to follow the Workshops link 
+       and then the link to the particular Workshop (W6).</I>
+
+
+</FONT></PRE>
+
+
+<! NOT TRNSFD>
+<STRONG>
+Wallington, A.M., Agerri, R., Barnden, J.A., Lee, M.G., Rumbell, T. (in press):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Affect Transfer by Metaphor for an Intelligent Conversational Agent."
+
+    In K. Ahmad (Ed.), <I>Sentiment Analysis.</I> 
+       In Text, Speech and Language Technology Series, 
+       Springer.
+
+    <A HREF=../ATT-Meta/Papers/chapter-apres-EMOT08.pdf>local online version</A>
+
+
+</FONT></PRE>
+
+
+
+<! NOT TRNSFD>
+<STRONG>
+Wallington, A.M., Barnden, J.A., Glasbey, S.R. &amp; Lee,M.G. (2006):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Metaphorical reasoning with an economical set of mappings."
+
+   <I>Documentaccao de Estudos em Linguistica Teorica e Aplicada, 22</I> (no.spe),
+   pp.147-171. 
+   ISSN: 0102-4450
+
+   <A HREF=http://www.scielo.br/pdf/delta/v22nspe/a11v22s.pdf>online version</A>
+
+
+</FONT></PRE>
+
+
+<P><BR>
+<HR>
+<P><BR>
+
+<H2> Technical Reports </H2>
+
+<P><BR>
+
+<! NOT TRNSFD>
+<STRONG>
+Agerri, R. &amp; Barnden, J.A. (2008):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Metaphor in Textual Entailment."
+
+   Technical Report CSRP-08-01, School of Computer Science, 
+      University of Birmingham, UK, October 2008.
+
+   <A HREF=ftp://ftp.cs.bham.ac.uk/pub/tech-reports/2008/CSRP-08-01.pdf>online version</A>
+
+
+</FONT></PRE>
+
+
+<! NOT TRNSFD>
+<STRONG>
+Wallington, A.M. (2007):</STRONG>
+
+   <PRE><FONT SIZE=4>   "An analysis of metaphors in a New York Times article:
+         A study of the variability in metaphor."
+
+   Technical Report CSRP-07-01, School of Computer Science, 
+      University of Birmingham, UK, October 2008.
+
+   <A HREF=ftp://ftp.cs.bham.ac.uk/pub/tech-reports/2007/CSRP-07-01.pdf>online version</A>
+
+
+</FONT></PRE>
+
+
+<! NOT TRNSFD>
+<STRONG>
+Wallington, A.M &amp; Barnden, J.A. (2006):</STRONG>
+
+   <PRE><FONT SIZE=4>   "Similarity as a Basis for Metaphor: 
+         Invariant Transfer and the role of VNMAs."
+
+   Technical Report CSRP-06-02, School of Computer Science, 
+      University of Birmingham, UK, October 2008.
+
+   <A HREF=ftp://ftp.cs.bham.ac.uk/pub/tech-reports/2006/CSRP-06-02.pdf>online version</A>
+
+
+
+
+<P><BR><BR>
+<HR>
+
+Last mod 24 June 2009
