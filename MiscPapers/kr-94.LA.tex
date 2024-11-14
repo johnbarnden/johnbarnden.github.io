@@ -1,0 +1,1371 @@
+% Incorps mod on p.8, para 2, l.3/4. Marked ``MOD 12may94'' here.
+% Created from sample LaTeX file for creating a paper in the Morgan Kaufmannn two 
+% column, 8 1/2 by 11 inch proceedings format. 
+% 
+% 15sep95: corrected the ``schema instance'' typo.
+%
+\documentstyle[proceedings]{article} 
+ 
+\title{An Integrated Implementation of
+Simulative, Uncertain and Metaphorical Reasoning
+about Mental States}
+ 
+\author{ {\bf John A.~Barnden} \\  
+\And 
+{\bf Stephen Helmreich}  \\ 
+Computing Research Laboratory  \\  
+New Mexico State University, Las Cruces, NM 88003 \\ 
+\And 
+{\bf Eric Iverson \&}   \\ 
+{\bf Gees C. Stein}   \\ 
+} 
+ 
+\begin{document} 
+ 
+\maketitle 
+ 
+ 
+
+\begin{abstract} 
+An unprecedented combination of {\it simulative} and {\it metaphor based}
+reasoning about beliefs is achieved in an AI system, ATT-Meta.  Much mundane
+discourse about beliefs productively uses conceptual metaphors such as MIND AS
+CONTAINER and IDEAS AS INTERNAL UTTERANCES, and ATT-Meta's metaphor-based
+reasoning accordingly leads to crucial discourse comprehension decisions.
+ATT-Meta's non-metaphorical mode of belief reasoning includes simulative
+reasoning (SR). In ATT-Meta, metaphor-based reasoning can block and otherwise
+influence the course of SR.
+\end{abstract} 
+ 
+\section{INTRODUCTION} % 1
+ 
+In spoken and written discourse, mental states and processes are often
+described with the aid of commonsense models of mind. These models are largely
+metaphorical, and the metaphorical descriptions often convey information, about
+the quality of the mental states, that is important for understanding the
+discourse.  In particular, the descriptions can clarify how agents can fail to
+draw even quite obvious conclusions from their beliefs.  Accordingly, as a step
+towards making mental state reasoning more realistic, refined and powerful, we
+have developed a system, ATT-Meta, for reasoning about mental states reported
+in small fragments of discourse, paying attention to metaphorical descriptions.
+The reasoning part of the system currently has an advanced prototype
+implementation in Quintus Prolog.
+
+As an example of the phenomena of interest, consider the following passage:
+{\it Veronica was preparing for her dinner party.  Her brother's recipe had
+said to fry the mushrooms for one hour. She did this even though in the
+recesses of her mind she believed the recipe to be wrong.} We claim that this
+last sentence manifests the conceptual metaphor of MIND AS PHYSICAL SPACE.
+Under this metaphor, the mind is a physical space within which ideas or
+thinking events/situations can lie at particular locations. The ideas and
+thinkings are often themselves conceived metaphorically as physical objects,
+events or situations. As we will see below, the use of this metaphor in the
+passage makes a considerable difference to what it can be reasonably taken to
+convey.  It metaphor affects the balance of reasonableness between possible
+explanations of the disparity between Veronica's following of the recipe and
+her belief that it was wrong. If no metaphor, or a different one, had been
+used, then the balance would have been different.
+
+ATT-Meta's main contributions are that it enriches mental state
+representation/reasoning by bringing in the commonsense models of mental states
+that people actually use, and it integrates metaphor-based reasoning about
+mental states with simulative reasoning (SR) about mental states. It thereby
+constrains SR in useful and novel ways.
+
+The plan of the paper is as follows.
+%
+Section 2 expands on the role of metaphor in discourse understanding.
+%
+Section 3 informally sketches the reasoning ATT-Meta  does on some example discourse fragments.
+%
+Sections 4 to 7 provide many representation and reasoning details underlying the account in section 3.
+The present paper is a natural sequel to Barnden (1989, 1992).
+
+
+\section{METAPHORS OF MIND} % 2
+ 
+Metaphors in discourse affect an understander's task of obtaining a coherent
+understanding. This is clear from, e.g., Hobbs (1990), Martin (1990) and
+others.  Here we expand on the recipe example given above.  Consider the
+discourse fragment (1), and contrast some possible continuations of it, namely
+(1a-c):
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (1)}
+{\it
+Veronica was preparing for her dinner party.  Her brother's recipe had said to
+fry the mushrooms for one hour.}
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+\noindent {\bf (1a)}
+{\it She did this even though she believed the recipe to be wrong.}
+
+\noindent {\bf (1b)}
+{\it She did this even though in the recesses of her mind she believed the
+recipe to be wrong.}
+
+\noindent {\bf (1c)}
+{\it She did this even though she thought, ``The recipe's wrong.''}
+
+\noindent
+Here (1a) contains an ordinary, non-metaphorical mental state
+description.  Sentence (1b) manifests the MIND AS PHYSICAL SPACE conceptual
+metaphor, explicitly referring to a specific subregion of the whole ``space''
+of the mind. (See, e.g., Lakoff 1993 for the notion of conceptual metaphor as
+opposed to mere linguistic manifestations of metaphor.)  Ideas or thinking
+episodes in one subregion can be incompatible with ideas in another.  For
+instance, one subregion can contain the thought that a recipe is wrong, whereas
+another can contain the thought that the recipe is right.  Alternatively,
+thoughts in one subregion can simply be absent from another.
+
+In (1c) we see the conceptual metaphor of IDEAS AS INTERNAL UTTERANCES
+(following Barnden 1992).  A thinking episode is portrayed as inner speech
+within the agent (or, more rarely, as inner non-speech utterances).  The
+thinking episode is necessarily an occurrent event happening at a particular
+moment in time (as opposed to a long-term believing), is conscious, is usually
+a ``forefront'' thought as opposed to being in the background, and, in cases
+like 1c, is usually confident as opposed to being tentative.  We take IDEAS AS
+INTERNAL UTTERANCES to be a special case of MIND AS PHYSICAL SPACE, with the
+internal utterance being an event that takes place within the ``space'' of the
+agent's mind.  MIND AS PHYSICAL SPACE and IDEAS AS INTERNAL UTTERANCES are two
+of the metaphors to which we have paid most attention in our work. Two others,
+MIND PARTS AS PERSONS and IDEAS AS MODELS, are omitted from this paper for
+brevity, but see Barnden (1989, 1992). There are many commonly-used, important
+metaphors of mind.  See, for example, Lakoff {\it et al.} (1991) (and Barnden
+1989, 1992 for further metaphors and citations).
+
+
+If one looked only at (1b,c,d) one might dispute the above claims about
+metaphor, saying that those sentences just involved canned forms of language.
+However, consider the following productive variants of them:
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (1b$^\prime$)}
+{\it She did this [i.e. followed the instruction] after forcibly shoving the idea
+that the recipe was wrong to a murky corner of her mind.}
+
+\noindent {\bf (1c$^\prime$)}
+{\it She did this  even while whining to herself, ``Oh no, this damned recipe's wrong.''}
+
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+\noindent
+Consider also the immense potential for further varying these, e.g. using verbs
+other than ``shove'' and ``whine'' or physical location phrases other than
+``murky corner.''  The most economical explanation of the sense that
+(1b$^\prime$,c$^\prime$) and their further variants make is that they appeal to
+the metaphors we mentioned above.  Then, for uniformity and continuity, it is a
+short step to saying that (1b,c) also manifest those metaphors, though in a
+more pallid way.  If one wanted to maintain that (1b) was not metaphorical, one
+would have to claim, for instance, that ``recesses,'' and the overwhelming
+majority of, if not all, words that can be used to mean physical subregions of
+various sorts, also happened to have literal mental meanings.  And, one would
+have to account for why the regularities in the way the words are used to
+describe the mind are analogous to regularities in their physical usage. An
+example of such a regularity is that words such as ``recesses'' and ``corner''
+convey related meanings when applied to the mind, much as they do when applied
+to physical space. These considerations are similar to the arguments used by
+Lakoff (1993).
+
+(1c) does differ markedly from (1c$^\prime$) in not using an ordinary verb of
+speech. However, we make three observations. First, people commonly experience
+some thoughts as ``inner speech,'' so that it is fair to take (1c) as saying
+that Veronica was experiencing inner speech. Secondly, the verb ``think'' is in
+fact often used to portray speech in the following way: ``Veronica thought
+aloud that the recipe was wrong.'' Thirdly, the idea that (1c) really is
+suggesting speech is reinforced by the effect of introducing the evaluative
+adjective ``damned'' into the quotation in (1c).  One might question whether
+(1c) implies inner speech as opposed to inner writing.  We plump for speech as
+being a far more likely implication, given that it is very common to find
+thought-description sentences using phrases such as ``said to himself,''
+``debated within herself'', etc., and relatively rare to find ones that convey
+inner writing; also, the sentence forms used within the quote marks appear to
+be more typical of speech than writing.
+
+%As for (1d), one might suggest that it could be read as saying that one
+%physical part of Veronica's brain literally had the belief in question (even if
+%this account happens to be scientifically inaccurate).  However, a similar
+%reading seems unjustifiable for (1d$^\prime$).  We note in passing that (1d)
+%combines IDEAS AS INTERNAL UTTERANCES with MIND PARTS AS PERSONS. This is a
+%common phenomenon.
+
+In (1a--c) there is a disparity between Veronica's obeying the recipe and her
+belief in its incorrectness.  The different ways the belief is described lead
+to different degrees of plausibility for various possible explanations of the
+disparity.  One reasonable interpretation for (1b) is that Veronica's
+wrong-recipe belief was only minimally involved, if at all, in her conscious
+thinking, so that she did not consciously think (to any significant degree)
+that she was following a recipe that was incorrect.
+%
+%Sentence (1d) works
+%similarly, although it requires also the construction of a presumption that the
+%mentioned part of Veronica's mind is not the main part (the one in control of
+%her actions).  
+%
+By contrast, continuation (1c) places the wrong-recipe belief squarely in her
+conscious thinking, so it seems much more likely that Veronica deliberately
+went against her own strong doubts, for some reason.  For example, she might
+have been ordered to follow the recipe.  We are not saying that an explanation
+for (1c) could not hold for (1b), or vice versa.  Rather, our point is that the
+{\it balance of reasonableness} is different between (1c) and (1b).  The
+non-metaphorical (1a) is vaguer in its implications than (1b,c), but (1c)-type
+explanations seem more likely than (1b)-type ones.
+
+
+
+\section{SKETCH OF REASONING}% 3
+
+Here we informally and partially outline the main reasoning steps ATT-Meta
+takes for examples (1--1a), (1--1b) and (1--1c), conveying the rough flavor of
+its SR and metaphor-based reasoning and of their intimate interaction.  We will
+touch on ATT-Meta's unusual feature of distinguishing conscious belief as an
+important special case of belief. The section also illustrates the uncertainty
+and defeasibility of ATT-Meta's reasoning, largely apparent below through the
+use of the qualifier ``presumably.''
+
+
+\subsection{OVERALL STRATEGY AND SIMULATIVE REASONING}% 3.1
+
+We take (1--1a) first.  It is given that Veronica followed the recipe.
+(ATT-Meta currently always trusts the discourse sentences to be true.)
+ATT-Meta infers from this that
+
+{\bf (2)} {\it presumably, Veronica consciously believed she was following it}
+
+via a rule that says that if someone does an action then (s)he is, presumably,
+conscious of doing so.  It is also given that Veronica believes the recipe to
+be wrong.  From this ATT-Meta uses simulative reasoning (SR) to infer that
+
+{\bf (3)} {\it presumably, she believed it was not  good to follow it.}
+
+\noindent 
+(We use ``not good'' here in the sense of ``not conducive to achieving the
+recipe's normal purpose.'')  The process is basically as follows.  In a special
+Veronica-simulation environment, ATT-Meta adopts the premise that {\it the
+recipe is wrong}.  We call this environment a {\it simulation pretence cocoon.}
+Using a rule that says that if a body of instructions is wrong it is not good
+to follow it, ATT-Meta infers within the cocoon that
+
+{\bf (3$^\prime$)}: {\it it is not good to follow the recipe}.  
+
+Concomitantly, ATT-Meta infers (3).  Further, within the cocoon
+ATT-Meta adopts the following premise, because of (2):
+
+{\bf (2$^\prime$)}: {\it Veronica follows the recipe}.\footnote
+%
+{Since ATT-Meta is simulating Veronica, it would be better to couch this
+premise as ``I am following the recipe.'' However, the ATT-Meta implementation
+does not yet use the treatment of indexicals that we have developed (but do not
+present here).  This deficiency does not get in the way of the issues that are
+our main concern.}
+%
+\  %
+
+Then, within the cocoon ATT-Meta infers the conjunction of (2$^\prime$) and
+(3$^\prime$), namely 
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (4$^\prime$)}: {\it Veronica 
+follows the recipe AND it's not good to follow the recipe.}
+
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+Concomitantly, it infers that, presumably, Veronica believes this conjunction.
+Notice here that an SR conclusion such as this one or (3) is always qualified by
+``presumably,'' reflecting the fact that ATT-Meta merely presumes that the
+agent does the necessary inferencing.
+
+Now, ATT-Meta has the following  rule:
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (R.1)} IF {\it someone is following a set
+of instructions and believes it to be wrong} THEN,
+presumably, {\it (s)he {\it consciously} believes that.}
+%
+%\footnote
+%%
+%{There should probably be some restriction on the type of belief involved here.
+%We currently impose no restriction, although the notion of ``about''
+%is itself fairly limited.}
+%%
+%\  %
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+\noindent 
+Therefore, ATT-Meta infers that Veronica's belief in
+the wrongness of the recipe was presumably conscious. Thus, both
+premises used in the simulation cocoon (namely: {\it the recipe is wrong}; {\it
+Veronica follows the recipe}) reflect conscious beliefs of Veronica's. As
+a result, ATT-Meta presumes that any belief resulting from the simulation is
+also conscious. Therefore, the main result of the belief reasoning  is
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (4)} {\it presumably, Veronica {\bf consciously} believed that: she follows the
+recipe AND it's not  good to follow the recipe.}
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+This feeds into a rule that can be paraphrased as follows:
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (R.2)} IF {\it agent X does action A and consciously believes that [(s)he does A AND
+it's not good to do A]} THEN, presumably, {\it the explanation is that (s)he
+has a special reason for doing A despite having that conscious belief.}
+
+Thus, ATT-Meta is able to infer the main result of the example, namely:
+
+{\bf (5)} {\it presumably, Veronica had a special reason for following the recipe even
+though consciously believing that [she's following the recipe AND it is not
+good to follow it].}
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+
+
+
+\subsection{METAPHOR-BASED REASONING}% 3.2
+
+We now turn to (1--1c), which involves simpler reasoning than (1--1b) does.
+ATT-Meta's general approach to metaphor is to ``pretend'' to take a
+metaphorical utterance at face value (i.e literally).  That is, in the case
+of (1c), ATT-Meta pretends that 
+
+(P) {\it there was a {\it real} utterance of ``The recipe's wrong'' within Veronica's mind,}
+
+where also ATT-Meta pretends Veronica's mind was a PHYSICAL SPACE.  The
+pretences are embodied as the adoption of P as a premise within a special
+environment that we call a {\it metaphorical pretence cocoon} for
+Veronica's-IDEAS AS INTERNAL UTTERANCES.  Now, the real force of such cocoons
+is that inference can take place within them, much as within simulation
+cocoons. This will happen for (1--1b). However, in the present example, the
+only important action that ATT-Meta bases on the metaphor is to use the
+following ``transfer rule'' linking certain metaphorical cocoons to reality:
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+\hang\noindent {\bf (TR.1)} IF [within a cocoon for agent X's-IDEAS AS INTERNAL
+UTTERANCES {\it there is an utterance of a declarative sentence S within X's
+mind}] THEN, presumably, {\it X consciously believes the proposition stated by
+S.}
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+Thus, ATT-Meta infers that, presumably, Veronica consciously believed the
+recipe to be wrong.  Thus, the remainder of the reasoning is essentially the
+same as that for (1--1a), and ATT-Meta again constructs the main result
+(5). (There is a sense in which (5) is more
+strongly supported in the (1--1c) case than in the (1--1a) case, because of
+general principles concerning the specificity of inferences. However, this
+matter is still under investigation.)
+
+Notice that it is only within the metaphorical pretence cocoon that ATT-Meta
+takes Veronica's mind to be a physical space. ATT-Meta could have information
+outside the cocoon saying or implying that no mind is a physical space.
+However, this generalization, as instantiated to Veronica, is overridden by the
+proposition within the cocoon that Veronica's mind is a physical space. (The
+reason for this is given below.)  Also, propositions about Veronica's mind
+within the cocoon have no effect on reasoning outside the cocoon unless
+explicitly exported by a transfer rule. Thus, the within-cocoon proposition
+that Veronica's mind is a physical space does not cause trouble outside the
+cocoon.
+
+
+In case (1--1c), the metaphor-based reasoning was minimal, and furthermore did
+not interact with SR very much.  Things are markedly
+different in the case of (1--1b).  ATT-Meta still tries to do the same
+SR about Veronica as above. However, one of the steps, namely
+the one that constructs the conjunction (4$^\prime$) within the simulation cocoon, is
+blocked from occurring.  The reason for this is as follows.
+
+Suppose ATT-Meta comes to a within-cocoon conclusion Q, and that this was
+directly based on within-cocoon  propositions  Q1, ..., Qn.   ATT-Meta concomitantly
+sets up the external conclusion that the agent (X) presumably believes Q, as was
+implied above.  However, another action is to record that this conclusion is
+dependent upon the hypothesis that
+
+\hang\noindent {\bf (I)} {\it X performs an inference step yielding Q from  Q1, ..., Qn.}
+
+\noindent
+This hypothesis is, normally, deemed by ATT-Meta to be {\it presumably} true.
+It turns out that for examples (1--1a) and (1--c) there is nothing that defeats
+this presumption.  However, one use of metaphor-based reasoning in ATT-Meta is
+precisely to defeat presumptions of form (I). If an instance of I is defeated
+then ATT-Meta abandons the conclusion that X presumably believes Q (unless Q
+has other support, e.g. other instances of I). If ATT-Meta abandons this
+conclusion then it concomitantly abolishes Q within the simulation cocoon.  Two
+instances of I are set up in case (1--1b):
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (I.1)} {\it Veronica performed an inference step yielding [it is
+not  good to follow the recipe] from [the recipe is wrong]};
+
+{\bf (I.2)} {\it Veronica performed an inference step yielding [Veronica
+follows the recipe AND it is not  good to follow the recipe] from
+[Veronica follows the recipe] and [it is not good to follow the recipe].}
+
+Now, part of ATT-Meta's understanding of the MIND AS PHYSICAL SPACE metaphor is:
+
+{\bf (TR.2)} {\it X's performing an inference process yielding Q from Q1, ..., Qn corresponds
+metaphorically to Q1, ..., Qn {\bf physically interacting} within X's mind
+space to produce Q.} (If n is 1 then Q arises just out of Q1, without an interaction
+with something else.)  
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+\noindent This principle is couched in a set of transfer rules
+analogous in form to TR.1. 
+In addition, ATT-Meta has a rule {\it purely about
+physical interactions} that says 
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (R.3)} 
+IF {\it some things are spatially separated from each other, rather than being
+close together,} THEN, presumably, {\it they do not interact.}
+
+Another purely physical rule is 
+
+{\bf (R.4)} 
+IF {\it Q1,..., Qn physically interact to produce Q and the Pi are all within a
+particular region R,} THEN, presumably, {\it Q is in R.}
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+Other parts of ATT-Meta's understanding of the metaphor are the
+following transfer principles:
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+\hang\noindent{\bf (TR.3)} 
+{\it X believing P corresponds to the thinking-that-P being at some position in
+X's mind-space};
+
+\hang\noindent{\bf (TR.4)} 
+{\it X consciously believing P corresponds to X's mind having a front region and
+the thinking-that-P being in that region};
+
+\hang\noindent{\bf (TR.5)} 
+IF {\it a thinking occurs in the recesses of X's mind} THEN, presumably, {\it it is not conscious.}
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+\noindent 
+ATT-Meta sets up a metaphorical pretence cocoon for Veronica's-MIND AS PHYSICAL
+SPACE.  ATT-Meta takes (1b) at face value and adopts the within-cocoon premise
+that in the recesses of this space there was the thought that the recipe is
+wrong. As before, ATT-Meta performs the SR step that
+concludes, within the simulation cocoon, that it is not good to follow the
+recipe. Hence, by TR.2 it also infers that, within Veronica's mind-space, the
+thought that the recipe is wrong {\it physically produced} the thought that it
+is not good to follow it.  By R.4, it follows that the latter thought was also
+in the {\it recesses} of Veronica's mind.
+
+However, ATT-Meta infers as in (1--1a) that presumably Veronica consciously
+believed that she was following the recipe. Hence, by TR.4, the thought that
+Veronica follows the recipe was in the {\it front} of her mind.  ATT-Meta takes
+the front and the recesses to be distant from each other (relative to the size
+of the mind-space). Therefore, ATT-Meta uses R.3 within the metaphorical
+pretence cocoon to infer that the thought that Veronica follows the recipe did
+{\it not} interact with the thought that it is not good to follow the recipe.
+Via TR.2, this undermines I.2. As a result, the conjunction (4$^\prime$) [Veronica follows
+the recipe AND it is not good to follow the recipe] is abolished from the
+SR cocoon. Concomitantly, the proposition that Veronica
+believed this conjunction is abolished. (I.1, on the other hand, is not
+undermined.)
+
+Recall that in (1--1a) ATT-Meta inferred that, presumably, Veronica {\it
+consciously} believed the recipe to be wrong. This inference is attempted also
+in case (1--1b).  However, it is defeated indirectly by the given information
+that the thought that the recipe was wrong was in the {\it recesses} of her
+mind, which supports via TR.5 the hypothesis that the belief was {\it not}
+conscious.  This support for this hypothesis is judged to be more specific, and
+therefore stronger, than the support for the hypothesis that the belief was
+conscious.
+
+All in all, (4) is defeated in case (1--1b) --- ATT-Meta does {\it not}
+conclude it.  In fact, because of a closed-world provision about belief in
+section 6, ATT-Meta comes to the stronger conclusion that Veronica actually
+failed to believe the conjunction (4$^\prime$).  This then allows the following
+rule to proceed:
+
+\addtolength{\baselineskip}{-.375\baselineskip}
+
+{\bf (R.5)} IF {\it agent X does action A, believes that it's not 
+good to do A, but fails to believe that [X does A AND it's not 
+good to do A]} THEN, presumably, {\it this failure explains the apparent disparity
+between X's action and belief.}
+
+Thus, ATT-Meta is able to infer the main result of the example, namely:
+
+{\bf (6)} {\it presumably, the explanation for the apparent disparity
+concerning Veronica is that she failed to believe that [Veronica follows the
+recipe AND the recipe is wrong].}
+
+\addtolength{\baselineskip}{+.6\baselineskip}
+
+Finally, it turns out that ATT-Meta does arrive at some {\it weak} support for (6)
+in cases (1--1a) and (1--1c), and conversely comes up with some weak support for (5)
+in case (1--1b). This reflects our point in section 2 that the metaphors affect
+the balance of reasonableness of explanations, and do not totally discount
+particular explanations.
+
+
+
+
+
+\section{REPRESENTATION SCHEME} % 4
+
+ATT-Meta's representations are expressions in a first-order logic with equality
+and with set description devices (that are syntactic sugar for first-order
+expressions). The logic is episodic, in that terms can denote ``episodes'' and
+sets of them.  Our logical representations are similar in spirit to those of
+Hobbs (1990), Schubert \& Hwang (1990) and Wilensky (1991). They are,
+overall, closest to Wilensky's, but the treatment of belief is similar to Hobbs'
+and different from those of Wilensky and Schubert \& Hwang.  In common with
+Schubert \& Hwang, we take an episode to be any sort of situation, event or
+process. An episode has a time, which can be an instant, a bounded interval,
+or an unbounded interval.  Time instants and time intervals are just objects
+in the domain (of the intended interpretation), just like any other object. We
+have no space here to go into the detail of the handling of time or causation,
+and in any case ATT-Meta's reasoning about time is currently limited.
+The detail we do give here is just what is most directly relevant to the aim of
+this paper (i.e. to explain ATT-Meta's mixing of belief reasoning and
+metaphor-based reasoning).
+
+Objects in the domain can be ``non-certain'' or ``certain.'' For instance, the
+episode of John kissing Mary at $<$some time$>$ could be non-certain. That is,
+ATT-Meta would not take the kissing to be necessarily real.  The basic type of
+term for denoting an episode is illustrated by:
+
+\quad {\tt \#ep(Kissing, $\tau$, John, Mary).}
+
+\noindent
+{\tt Kissing} denotes the set of all conceivable kissing episodes.  $\tau$ is
+some term denoting a specific time interval, and the other arguments denote
+particular entities (which can be non-certain).  We assume that a kissing
+episode is uniquely specified by the time interval and the identity of the
+participants.  If a kissing episode has other aspects, for instance a manner,
+then these can be specified on the side, as i: {\tt $e$ = \#ep(Kissing,
+...) $\land$ manner($e$) = lovingly}, for some constant or variable $e$. 
+
+Episodes with the same time as each other can be compounded by conjunction and
+disjunction, using function symbols {\tt \#ep-conj} and {\tt \#ep-disj}. 
+For example, the  term 
+
+\begin{tabbing}
+\quad {\tt \#ep-conj(}\={\tt \#ep(Being-Happy, $\tau$, John),}\\
+                      \>{\tt \#ep(Being-Sad, $\tau$, Bill))}
+\end{tabbing}
+
+denotes the episode of John being happy and Bill being sad at/over $\tau$.
+Episode disjunction and negation is similar.  There is also a way for
+expressing quantificational episodes, such as the episode of John loving each
+of his sisters over interval i, or the episode of some person in a given room
+laughing at John during interval i.  The quantificational apparatus is simple,
+but its design required attention to subtleties raised by having to allow for
+non-certain episodes and other entities.  For instance, the episode of all dogs
+being happy over interval $\tau$ must be defined independently of which
+entities really are dogs (according to ATT-Meta) but must instead map all
+conceivable being-a-dog situations to corresponding being-happy situations.
+
+Non-certain entities episodes can have the status of {\it Possible}, {\it
+Suggested} or {\it Presumed}.  {\it Possible} means that the episode may be
+real (its negation is not certain). {\it Suggested} means there is some reason
+to think the episode is real.  {\it Presumed} means ATT-Meta is presuming the
+episode is real. These degrees of uncertainty are stated by means of
+predications such as {\tt
+\#presumed(\#ep(Kissing,...)).}\footnote
+%
+{Elsewhere we have called the Suggested and Presumed ratings by the names
+PERHAPS and DEFAULT respectively.}
+%
+\  % 
+Any formulae at the top level in the system are (implicitly) certain --- it is
+only episodes (and other domain entities) that are qualified as to certainty.
+
+We now turn to mental states, concentrating here exclusively on the central
+case of belief. We have several modes of belief representation, one default 
+mode and various different modes corresponding to different metaphors of mind
+used in mental state descriptions. The default mode is used, for instance, when
+a belief is reported non-metaphorically, as in ``Bill believes that John was
+ill on $<$some date$>$.''  Under the default mode, this state of belief is cast as
+an episode of Bill being in a particular relationship to the episode of John
+being ill on the date in question. The formula we use is
+
+\begin{tabbing}
+{\tt \#certain(}\\
+\quad {\tt \#ep(\#Belie}\={\tt ving-Certain, now, Bill,}\\
+                        \>{\tt \#ep(Being-Ill, John, $\tau$)))}
+\end{tabbing}
+
+where $\tau$ denotes the time interval for the specified date, {\tt now}
+denotes some time interval including the current instant, and
+{\tt \#Certain-Believing} denotes the set of all conceivable episodes of an
+agent believing something with certainty. Notice the two different layers
+of certainty qualification: ATT-Meta has one degree of certainty that Bill
+had the belief, and Bill, if he does have the belief, has his own degree
+of certainty. The two layers are independent, so that we might
+alternatively have
+
+\begin{tabbing}
+{\tt \#suggested(}\\
+\quad {\tt \#ep(\#Belie}\={\tt ving-Presumed, now, Bill,}\\
+                        \>{\tt \#ep(Being-Ill, John, $\tau$)))}.
+\end{tabbing}
+
+Note that we take Bill's being certain of something as implying that he
+presumes it (i.e. he ``believes-presumed'' it), and believing-presumed
+similarly implies believing-suggested.  Conscious belief is represented
+similarly, but using episode kinds {\tt
+\#Consciously-Believing-Certain}, etc.
+
+Finally, we sketch the most important aspect of the representation, which is
+how ATT-Meta expresses belief states that are described metaphorically in the
+input discourse. The basic principle here is that of {\it metaphor-infused
+representation}. That is, ATT-Meta pretends to take the metaphorical descriptions
+literally, and uses the ordinary episode kinds that are used within the
+source domain (or ``vehicle'') of the metaphor. For example, consider the
+sentence, {\it The idea that Sally is clever is in Xavier's mind.} In line with
+our comments on the productivity of metaphor in section 2, we take this sentence
+to be a manifestation of MIND AS PHYSICAL SPACE.  The encoding of the sentence is
+
+\begin{tabbing}
+{\tt [WITHIN Xavier's-MIND AS PHYSICAL SPACE cocoon}\\
+{\tt \#certain(}\\
+\quad {\tt \#}\={\tt ep-conj(}\\
+              \>{\tt \#ep(Being-Physical-Object-Type, t, i),}\\
+              \>{\tt \#ep(Being-Physical-Space, t, m),}\\
+              \>{\tt \#ep(Being-Mind-Of, t, m, Xavier),}\\
+              \>{\tt \#ep(Inst-Being-Physically-In, t,i,m),}\\
+              \>{\tt \#ep(Being-}\={\tt Agent's-Certain-Idea-Of,t,Xavier,i,}\\
+              \>                 \>{\tt \#ep(Being-Clever,t,Sally))).}\\
+{\tt ]}
+\end{tabbing}
+
+\noindent
+where {\tt t, i}, etc. are Skolem constants.  Here {\tt
+Inst-Being-Physically-In} is the set of all conceivable situations of an
+instance of some physical-object type being {\it physically} in something.  The
+idea (denoted by {\tt i}) of Sally's (certainly) being clever is stated to be a
+physical-object type, Xavier's mind ({\tt m}) is stated to be a physical space,
+and and instance of {\tt i} is stated to be physically in {\tt m}.
+
+We therefore do {\it not} represent the meaning of the sentence by translating
+the metaphorical input into non-metaphorical internal representations: the
+internal representations are themselves metaphorical.  Note that we are not
+saying that ATT-Meta really believes that, say, an idea is a physical-object
+type --- in a sense ATT-Meta merely pretends temporarily to believe it, because
+the representation is within the stated cocoon.
+
+Below, two propositions are {\it complements} iff one is the negation of the
+other.  Also, a {\it given proposition} is either a piece of knowledge in
+ATT-Meta's own knowledge base or is a proposition derived directly from the
+discourse.  In the latter case it has a rating of Certain.
+
+
+\section{REASONING BASICS} % 5
+
+ATT-Meta's reasoning is centered on a goal-directed, backwards-chaining usage
+of production rules that link episodes to episodes (rather than formulae to
+formulae).  Each rule has the form 
+
+\quad {\tt $<$LHS$>$ $\longrightarrow$ [$<$qualifier$>$] $<$RHS$>$}, 
+
+where the LHS is a list of episode-denoting terms (typically of the form {\tt
+\#ep(...)} possibly containing free variables, the RHS is one such term, and $<$qualifier$>$ is
+one of Suggested, Presumed, or Certain. Also, a term $e$, or
+a sublist of terms on the LHS, can be embedded in a metaphorical cocoon
+designator as follows: {\tt [WITHIN-COCOON $\chi$: $\mu$ $e$]}. Here $\chi$ is
+an (agent-denoting) term (usually a variable) and $\mu$ is the name of a
+metaphor such as MIND AS PHYSICAL SPACE.
+
+An (unrealistic) example of a  rule is
+
+\begin{tabbing}
+\quad \={\tt \#ep(Loving, $t$, $x$, $y$), \#ep(Being-Boy, $t$, $x$)}\\
+      \>$\longrightarrow$ {\tt [Presumed] \#ep(Being-Hungry, $t$, $x$).}
+\end{tabbing}
+
+\noindent
+This says that any boy who loves something at/over some time t is, presumably, hungry at/over t. Suppose ATT-Meta is investigating the proposition
+that Mark is hungry during a time interval denoted by some term $\tau$.
+Then it sets up the episode-term {\tt
+\#ep(Being-Hungry, $\tau$, Mark)} as a subgoal.  (We use the term
+``proposition'' loosely to mean an episode-denoting term that has either been
+given a rating of at least Possible, or is an existing reasoning goal.)  It
+finds the above rule, and instantiates its $t$ and $x$ variables to {\tt now}
+and {\tt Mark}.  Suppose ATT-Meta already has the formulae
+
+\begin{tabbing}
+\quad \={\tt \#certain(Loving, $\tau$, Mark, Mary)}\\
+      \>{\tt \#certain(Being-Boy, $\tau$, Mark).}
+\end{tabbing}
+
+As a result, ATT-Meta creates the formula {\tt
+\#presumed(\#ep(Being-Hungry, $\tau$, Mark)).} If there were other rules also
+providing evidence for the Mark-hungry goal, then the qualifier assigned would
+be the maximum of the qualifiers suggested by the individual rules, where
+Suggested is less then Presumed which is less than Certain.
+
+Also, the LHS terms can match with Suggested and Presumed episodes,
+not just Certain ones as in our example. Then the qualifier suggested by
+the rule for the RHS episode is the minimum of the certainty levels picked up
+by the LHS terms and the $<$qualifier$>$ in the rule itself. So, if is only
+Suggested that Mark loves Mary, then from the rule it would only get a
+Suggested rating for Mark being hungry.
+
+When ATT-Meta investigates a
+goal-episode (e.g. Mark being hungry), it automatically investigates its
+negation as well. Suppose there are rules that could provide evidence for the
+negation (so an RHS could have the form {\tt
+\#ep-neg(\#ep(Being-Hungry, $t$, $x$))}.  Let us say that the maximum
+of the confidence levels for the original hypothesis is P, and the maximum for
+the negated hypothesis is N. (Each of N or P is always at least Suggested.)
+Then ATT-Meta proceeds as follows: If P and N are both  Certain, then a
+genuine error condition has arisen and ATT-Meta halts.  Otherwise, if one is
+Certain, then it prevails and the other goal is deleted.  Otherwise, both
+the original goal and its negation are given ratings by the following {\it
+rating reconciliation scheme}:
+%
+if one or both of P, N are Suggested then they are accepted as the
+certainty levels of the two hypotheses;
+%
+and if P, N are both Presumed, then, unless there is reason to prefer one
+presumption over the other, both hypotheses are ``downgraded'' by being given a
+rating of Suggested.  Currently, the only way in which a one presumption can be
+preferred over another is through a {\it specificity comparison heuristic}. 
+
+We are actively investigating the question of how to compare
+specificity.  We describe here one crude, preliminary
+approach that we are experimenting with. The defined more-specific-than
+relation is irreflexive and antisymmetric, but it is not transitive and is
+therefore not a partial order. It is not yet clear how important this
+deficiency is. 
+
+Let R be a rule that contributed a Presumed rating to a proposition P.  Then
+the set of propositions to which R was applied is an {\it immediate basis} (IB)
+for P.  Also, if P is a given proposition, then one IB for P is just $\{$P$\}$.
+It may have other IBs because a given proposition may also be supported by
+rules.
+
+With Q as above, we give preference to Q over $\overline{{\rm Q}}$ if the
+support for Q is more {\it Q-specific} than the support for $\overline{{\rm
+Q}}$.  The support for a proposition S1 is more Q-specific than the support for
+a proposition S2 {\it iff} some IB for S1 is more Q-specific than some IB for
+S2 and not less Q-specific than any IB for S2, {\it and} any IB for S2 that is
+more Q-specific than some for S1 is also less Q-specific than some for S1.
+(Our more-specific-than relation is relative to Q because of condition (b)
+below.  ``Q-specific'' is synonymous with ``$\overline{{\rm Q}}$-specific.'')
+)
+
+IB1 is more Q-specific than IB2 {\it iff} each proposition P in IB2 is either in
+IB1 or less Q-specific than IB1 {\it and} there is a proposition in
+IB1$\setminus$IB2 that is not less Q-specific than IB2.  Proposition P is less
+Q-specific than proposition set IB {\it iff}
+
+(a) P can be derived just from IB but the propositions in IB cannot all be
+derived just from P; or:
+
+(b) neither of P, IB can be derived just from the other, and some proposition
+in IB is ``closer'' to Q than P is (see below); or:
+
+(c) neither of P, IB can be derived just from the other, P is incomparable as
+to Q-closeness with each proposition in IB, and the support for P is less
+Q-specific than the support for some proposition in IB.
+
+P1 is {\it closer} than P2 to Q under the following conditions:
+
+(b1) Q is about (exactly) one agent X's mental state, P1 is about X's mental state, but P2
+is not; or
+
+(b2) Q is about one agent X's mental state, P1 is about X, but P2 is not.
+
+Derivability in (a) is examined using heuristically limited techniques; and
+note that the derivability check is a matter of examining the implementation's
+inter-proposition dependency links rather than undertaking more reasoning. The
+recursion introduced by (c) must be limited because of circularities, notably
+those introduced by $\{$P$\}$ being an IB of P when P is a given proposition.
+Provision (b) is closely tailored to the purposes of ATT-Meta, but it is a
+special case of a general principle: {\it if one is trying to establish
+something, Q, and some proposition P1 is closer in subject matter to Q than
+some other proposition P2 is, then one should tend to give more weight to P1
+than to P2.} In turn, this general principle is a natural generalization of the
+normal overriding-of-inheritance principle commonly employed in semantic
+networks. For a given node, closer ancestors are closer in subject matter to
+the node than more distant ancestors are. Aboutness in (b1,2) is assessed in a
+simple, crude way.
+
+As an example of the use of the Q-specificity heuristic, consider the
+hypothesis in the (1--1c) example in section 2 that 
+%
+% OLD: Veronica consciously believed that she was following the recipe. 
+% MOD 12may94:
+%
+Veronica consciously believed that the recipe was wrong. 
+%
+Let this be Q. Q gets an initial
+Presumed rating only via rule R.1 from the propositions that (i) she followed
+the recipe and (ii) she believed the recipe to be wrong. Here (i) is a given
+proposition (with no rule-based support) and (ii) is derived by one rule
+application from the given proposition that (iii) she believed in the recesses
+of her mind that the recipe was wrong. On the other hand, not-Q (i.e.
+$\overline{{\rm Q}}$) gets an initial Presumed rating from (iii) via TR.5 only.
+So, the only IB for Q is $\{$(i),(ii)$\}$ and the only IB for not-Q is
+$\{$(iii)$\}$.  Here (ii) is less Q-specific than $\{$(iii)$\}$ since (ii) is
+derivable from just (iii) (but not vice versa). Also, (i) is less Q-specific
+than $\{$(iii)$\}$ by condition (b1) above. It is also easy to see that (iii)
+is not less Q-specific than $\{$(i),(ii)$\}$.  Therefore, $\overline{{\rm
+Q}}$'s only IB is more Q-specific than Q's only IB, and only Q is downgraded to
+Suggested.
+
+Finally, we can only briefly mention an important truth-maintenance algorithm
+used in the implementation.  Because of the common phenomenon of circularities
+in the inter-hypothesis derivation graph, and because of the above downgrading
+of Presumed ratings to Suggested, ATT-Meta must sometimes traverse parts of the
+graph, adjusting confidence ratings in order to satisfy some constraints. The
+updating is done lazily (i.e., on demand). (Cf. the lazy type of ATMS studied
+by Kelleher \& van der Gaag 1993).
+
+
+\section{BELIEF REASONING} % 6
+
+The central, but not the only, mode of belief reasoning in ATT-Meta is
+simulative reasoning (SR). SR has been proposed by a number of investigators as
+a relatively efficient technique for reasoning about agents' beliefs (Ballim \&
+Wilks 1991, Chalupsky 1993, Creary 1979, Dinsmore 1991, Haas 1986, Konolige
+1986, Moore 1973; although Konolige describes as simulation what we call
+explicit meta-reasoning, and calls SR a form of ``attachment'').  An SR system
+can intuitively be described as going into the agent's belief space, and
+reasoning within it by means of the system's own inference rules, acting on
+beliefs in the space; it then counts resulting conclusions as beliefs of the
+agent (perhaps only defeasibly). SR can also be described as the system
+pretending temporarily to adopt the agent's beliefs. SR is in contrast to using
+axioms or rules that constitute a meta-theory of agents' reasoning. The
+advantages of SR are discussed in some detail in Haas (1986) and Barnden (in
+press), and include the point that SR allows {\it any} style of base-level
+reasoning used by the system for ordinary purposes to be easily attributed to
+an agent, without the need for a separate meta-theory for each such style of
+reasoning --- abduction, induction, ATT-Meta-style defeasible/uncertain
+reasoning, or whatever.
+
+ATT-Meta's SR is procedurally complex. We therefore describe it informally,
+though still precisely. First we give a thumbnail sketch.  The SR proceeds in a
+backwards, goal-directed way.  Suppose ATT-Meta is investigating the hypothesis
+that X believes-$\rho_0$ P, where $\rho_0$ is one of the confidence ratings
+from Possible to Certain.  ATT-Meta strips off the ``X believes-$\rho_0$''
+to get the reasoning goal P within a simulation cocoon for X.  In the
+implementation, placing a proposition within a simulation cocoon consists of
+tagging it with the identity of the believer, X.  In its normal way, ATT-Meta
+also investigates the complement $\overline{{\rm P}}$ of P within the cocoon.
+Hence, the SR might end up concluding that X believes $\overline{{\rm P}}$
+rather than P.
+
+Currently, any of ATT-Meta's own rules can be used within the X-simulation
+cocoon (i.e. can be applied to X-tagged propositions, yielding X-tagged
+conclusions).  However, in contrast with some other SR schemes, ATT-Meta's own
+propositions are {\it not} ascribed (by default) to the believer, i.e. imported
+into the cocoon.  (This reflects a very recent change in our approach. In fact,
+a provision at the end of this section embodies an opposite to default
+ascription.)  Rather, the only way for a proposition Q to enter the cocoon
+from outside is via a proposition (outside the cocoon) of the form [X
+believes-$\rho$ Q] for some $\rho$.  Further, Q cannot be inserted in the
+cocoon unless ATT-Meta's rating for [X believes-$\rho$ Q] is Presumed or
+Certain. This is to limit the complexity of reasoning and to boost its
+definiteness.  In practice, ATT-Meta has many rules that can lead to
+propositions of form [X believes-$\rho$ Q], for general classes of agent. An
+example is a rule we appealed to in section 3, saying that if an agent X
+performs an action then, presumably, X consciously believes (s)he does so. (A
+further rule is needed here to go from conscious belief to belief {\it
+simpliciter}.) Notice that conclusions from such rules can be defeated by other
+information. For instance, the conclusion of the rule just mentioned could be
+defeated by a given Certain proposition that X does not believe (s)he performs
+the action.  Also, conclusions from SR can defeat the conclusions of such
+rules, or vice versa (depending on which way specificity comparisons go).
+
+Let Q be P, $\overline{{\rm P}}$ or a subgoal used in the reasoning within the
+cocoon towards P or $\overline{{\rm P}}$ .  If Q is given rating $\rho$ by
+reasoning within the cocoon, then the proposition that X believes-$\rho$ Q is
+given a rating of Presumed outside the cocoon, barring interference from
+reasoning outside the cocoon.
+
+Now we provide a complete description of the process. It is
+complex, but, as we will explain, for much of the time in practice only simple
+special cases arise.  With Q as above, the steps of the process applied to Q
+and $\overline{{\rm Q}}$ are in outline as follows. After the outline we will
+provide the detail.
+
+{\bf (A)}: {\it Simulation proper}. Because the reasoning is backwards, we assume
+that all reasoning towards Q and $\overline{{\rm Q}}$ has been done (by
+recursive application of the process we are now describing), and in particular
+that their ratings have been reconciled with each other.  Notice that one of Q,
+$\overline{{\rm Q}}$ may have been eliminated by a Certain rating for the
+other.
+
+
+{\bf (B)}: {\it Externalization.} Q and $\overline{{\rm Q}}$ are ``externalized'' to
+create hypotheses, outside the cocoon, of the following types:
+
+\begin{tabbing}
+\quad \=(i) \quad \= X believes-$\rho^\prime$ Q\\
+      \>(ii)      \> not(X believes-$\rho^\prime$ Q)\\
+      \>(iii)     \> X believes-$\rho^\prime$ $\overline{{\rm Q}}$\\
+      \>(iv)      \> not(X believes-$\rho^\prime$ $\overline{{\rm Q}}$)
+\end{tabbing}
+
+for various ratings $\rho^\prime$ related to the ratings for Q and $\overline{{\rm Q}}$.
+The propositions of types (i) to (iv) are given particular preliminary ratings.
+
+{\bf (C)}: {\it Non-simulative phase}. The hypotheses introduced in (B) are now
+investigated by ordinary reasoning outside the cocoon, using any rules that
+address those hypotheses. (Of course, some of the hypotheses may coincide with
+given propositions.) In particular, special rules that mutually constrain
+propositions of types (i) to (iv) are available.  In this phase, a proposition
+introduced by (B) can have its rating upgraded or downgraded, or can be
+eliminated altogether.
+
+{\bf (D)}: {\it Consciousness attribution.} There may be a goal to show that Q
+is consciously believed by X, not just believed.  If so, and Q still exists and
+resulted within the cocoon from conscious beliefs, then that goal is given
+support.  
+
+
+{\bf (E)}: {\it Re-internalization.} If any proposition of form [X believes-$\rho$ Q]
+still exists and has rating at least Presumed, then the final rating given to Q
+inside the cocoon is the maximum of the $\rho$ values in such propositions.
+Similarly for $\overline{{\rm Q}}$. If no [X believes-$\rho$ Q/$\overline{{\rm
+Q}}$] exists anymore, then Q/$\overline{{\rm Q}}$ (resp.) is eliminated from
+the cocoon.
+
+
+The following fleshes out steps (A) to (D) of the above outline.  (We use
+informal IF-THEN descriptions of rules, but they are straightforwardly
+expressible in the formalism).
+
+{\bf (For A)} Ratings for Q and $\overline{{\rm Q}}$ contributed by individual rules are
+reconciled with each other in the normal way, except that a Certain/Certain
+clash results only in the SR for X being halted, rather than in a global system
+error.  (A more sophisticated possible action is mentioned below as a future
+research item.)
+
+{\bf (B.1)} If Q is still present and has rating $\rho$, then for each rule that
+contributed to Q within the cocoon by being applied to some propositions Q$_1$
+to Q$_n$ with ratings $\rho_1$ to $\rho_n$, the following goal is set up
+outside the cocoon, with an initial rating of Presumed:
+
+\parindent=25pt
+\hang\noindent
+(I.Q) X does-inference-step to Q with rating $\rho$ from Q$_1$, $\ldots$, Q$_n$
+with ratings $\rho_1$ to $\rho_n$.
+
+\parindent=0pt
+
+(Cf. schema (I) in section 3.)
+And, [X believes-$\rho$ Q] is regarded as having been supported 
+by the rule
+
+\parindent=25pt
+\hang\noindent
+(R.Q) IF ...(I.Q) as above ... AND X believes-$\rho_1$ Q$_1$ AND ... AND X believes-$\rho_n$ Q$_n$ 
+THEN [Certainly] X believes-$\rho$ Q.
+
+\parindent=0pt
+
+Since, by recursion over the process we are describing, the Q$_i$ do not exist
+in the cocoon unless X believes them to some degree, [X believes-$\rho$ Q] is
+given some degree of support by R.Q, using the normal scheme for ratings
+management in rule application. Normally, I.Q keeps its rating of Presumed, but
+it is investigated in the normal way and could be upgraded, downgraded or
+eliminated.
+
+$\overline{{\rm Q}}$ is dealt with similarly, possibly giving rise to analogous
+propositions (I.$\overline{{\rm Q}}$) and rule (R.$\overline{{\rm Q}}$).
+
+{\bf (B.2)} Suppose $\overline{{\rm Q}}$ has rating Suggested inside the cocoon, and
+this resulted from a downgrade because of conflict with Q. Then ATT-Meta
+regards the following rules as having been applied, for each (I.Q) produced by
+step (B) for which $\rho$ = Presumed:
+
+\parindent=25pt
+\hang\noindent
+(R$^\prime$.$\overline{{\rm Q}}$) IF ...(I.Q) as above ... AND X
+believes-$\rho_1$ Q$_1$ AND ... AND X believes-$\rho_n$ Q$_n$  THEN [Certainly] not(X believes-Presumed $\overline{{\rm Q}}$).
+
+\parindent=0pt
+
+Q is treated similarly.
+
+
+
+{\bf (For C)} The special rules mentioned above are defined by the following schemata.
+$\rho$ and $\rho^\prime$ stand for any ratings where $\rho > \rho^\prime \ge$ Possible.
+
+
+\begin{tabbing}
+(RB1)\quad \=IF \=$Y$ believes-$\rho$ $B$ THEN [Certainly]\\
+           \>   \>$Y$ believes-$\rho^\prime$ $B$\\
+\\
+(RB1$^\prime$) \>IF not($Y$ believes-$\rho^\prime$ $B$) THEN [Certainly]\\
+           \>   \>not($Y$ believes-$\rho$ $B$)\\
+\\
+(RB2)      \>IF $Y$ believes-Certain $B$ THEN [Presumably] \\
+           \>   \>not($Y$ believes-Possible $\overline{B}$)\\
+\\
+(RB2$^\prime$) \>IF $Y$ believes-Possible $B$ THEN [Presumably] \\
+           \>   \>not($Y$ believes-Certain $\overline{B}$)\\
+\\
+(RB3)      \>IF $Y$ believes-Presumed $B$ THEN [Presumably] \\
+           \>   \>not($Y$ believes-Presumed $\overline{B}$).
+\end{tabbing}
+
+A Presumed/Presumed clash between X believes-$\rho$ Q$^\prime$ and not(X
+believes-$\rho$ Q$^\prime$), where Q$^\prime$ is either Q or $\overline{{\rm
+Q}}$, is treated in the normal way. 
+
+Once the reasoning of this phase is complete, ATT-Meta applies a closed-world
+assumption to X's belief in Q and X's belief in $\overline{{\rm Q}}$.  If
+$\rho$ is the maximum rating such that [X believes-$\rho$ Q] has a rating of
+Presumed or Certain, then ATT-Meta gives a Presumed rating to not[X
+believes$\rho^\prime$ Q] for each $\rho^\prime$ higher than $\rho$ (unless that
+proposition already has a rating of Presumed or Certain). Similarly for
+$\overline{{\rm Q}}$.
+
+
+{\bf (For D)} Consciousness attribution is handled in part by a ``conscious''
+counterpart for each rule of type (R.Q) or (R.$\overline{{\rm Q}}$) as defined
+in (B.1).  This counterpart just has ``believes'' replaced by ``consciously
+believes'' throughout. In addition, ordinary non-simulative reasoning within
+(C) can lead directly to conclusions of form [X consciously-believes Q], or
+similarly with $\overline{{\rm Q}}$. In particular, we have made use of rules
+such as the following for specific sorts of belief B: IF Y believes-$\rho$ B
+AND Y is conscious THEN [Presumably] Y consciously-believes-$\rho$ B.
+
+
+That completes the description of SR.  Although the process is quite
+complicated in general, it is in practice relatively unusual for both (A) and
+(C) to involve a significant amount of processing.  If (A) does do so but (C)
+does not, then essentially (B) and (D) leave the results of (A) unchanged.
+Conversely, if (C) involves significant reasoning but (A) and (B) are trivial
+because Q and $\overline{{\rm Q}}$ find no support within the cocoon, then
+essentially (D) just strips off belief layers from positive belief propositions
+established by (C).  Also, the process is optimized by means of special
+processing steps in the implementation.  For instance, the RB... and (R.Q)
+rules are not explicit in the implementation.
+
+When both (A) and (C) are significant, some interesting effects can arise.  In
+particular, a downgrade during (A) of Q or $\overline{{\rm Q}}$ because of a
+Presumed/Presumed clash within the cocoon can be reversed by (C). For example,
+there might be a given, Certain proposition that X believes-Presumed Q,
+preventing a downgrade of Q. The prevention happens thus: during (C), that
+given proposition defeats the Presumed proposition arising from (B.2) that X
+does not believe-Presumed Q. As a result, during (D), Q is given a rating of
+Presumed.
+
+During (C), a Presumed/Presumed conflict between a proposition of one of the
+forms (i) to (iv) and its complement can bring in a specificity comparison, as
+normal. The rules of form (R.Q), (R.$\overline{{\rm Q}}$), (R$^\prime.Q$) and
+(R$^\prime$.$\overline{{\rm Q}}$) allow the comparison to look back to the way
+that the believings on the LHSs of those rules were established, with the
+reasoning within the cocoon  being invisible to the process.
+
+The SR scheme as described can also be used with SR, allowing nested belief to
+be handled. However, we have not yet intensively investigated this matter.
+
+%We have no predisposition towards including principles such as positive
+%introspection (if X believes B then he believes he does) or negative
+%introspection (if X does not believe B then he believes he does not).  In fact,
+%we suspect that such introspection only applies to certain types of B and is
+%highly context-sensitive. Consciousness of the believing probably makes a
+%difference as well. If we were to include a form of introspection, it would no
+%doubt be couched in non-Certain rules.
+
+ATT-Meta's top-level reasoning goal when faced with discourse fragments like
+(1--1a/b/c/d) in section 2 is currently set by hand and is to the effect that
+some disparity in the discourse is resolved because of explanation $e$, where
+$e$ is a variable in the goal and is bound as a result of satisfying the goal.
+Such goals match the RHSs of rules such as R.2 and R.5 in section 2.  The
+disparity is currently not detected by ATT-Meta itself.
+
+
+
+\section{METAPHORICAL REASONING} % 7
+
+Hypotheses of form (I.Q) above (or, of course, I.$\overline{{\rm Q}}$)
+introduced by steps (B.1) and (B.2) of SR provide a means whereby
+meta-reasoning about an agent's individual reasoning steps can be applied to
+affect the course of SR.  Such reasoning might downgrade or upgrade those
+hypotheses, thus affecting the strength of the conclusions reached by rules
+such as (R.Q). We have studied metaphor-based reasoning that affects (in fact,
+only ever downgrades) the hypotheses (I.Q), but, in principle, non-metaphorical
+reasoning could also do so. In particular, limitations on the amount of
+reasoning the agent is assumed to be able to do could be brought into the
+picture.
+
+We concentrate here on the effect of metaphor on hypotheses (I.Q), but a
+metaphor-based inference can also say something direct about an agent's belief.
+For instance, in section 3, an IDEAS AS INTERNAL UTTERANCES inference directly
+produced the conclusion that a particular belief was conscious.
+
+When a hypothesis (I.Q) is created, one sort of rule that might attack it (i.e.
+support its negation) is a metaphorical ``transfer'' rule such as TR.2 in
+section 3.  Through the ordinary process of backwards rule usage, this causes
+subgoals to be set up inside the (X,M) metaphorical pretence cocoon specified
+by the rule, if that cocoon exists. Here X is the agent and M is the name of
+the metaphor.  A special action is to try to establish whether the cocoon
+exists.  Currently, the cocoon only exists if a metaphorical belief
+representation (as at the end of section 4) has been set up as a direct
+result of one the sentences in the input discourse. If the cocoon does not
+exist, then the transfer rule fails.  If the cocoon does exist, then the
+presence of a proposition P within it is simply noted in the implementation by
+tagging a copy of P with (X,M).  When the cocoon is created, one or more {\it
+standard premises} are inserted.  For instance, if M is MIND AS PHYSICAL SPACE,
+then the cocoon will contain the Certain premise that X's mind is a physical
+space.  Also, other premises resulting directly from the input discourse can be
+inserted.  For instance, the discourse might say that a particular idea is in
+X's mind. We call these {\it discourse premises for the cocoon}. Currently all
+such premises are Certain.
+
+Reasoning within the cocoon is as normal, with a small but important change to
+the rating-reconciliation scheme. The reasoning within the cocoon (i.e.
+mediating between (X,M)-tagged propositions) can use any of ATT-Meta's rules,
+but because of its goal-directedness it will ordinarily just use rules peculiar
+to the vehicle domain of M. Subgoals resulting from within-cocoon rule
+consideration can also be addressed (supported or attacked) by transfer rules.
+In turn, these rules can lead to rule consideration entirely outside the
+cocoon. In this way, metaphor-based reasoning is intimately and
+context-sensitively combined with non-metaphorical reasoning.
+
+Knowledge outside the cocoon can conflict with knowledge inside, as pointed out
+in section 3. For instance, ATT-Meta may have the rule (R) that a mind is
+Certainly not a physical space. This rule's Certain conclusion in X's case
+would conflict with the standard premise mentioned above as being in the
+cocoon.  To handle this problem, we simply make the following change to the
+rating-reconciliation scheme as used within the cocoon: when considering a
+subgoal Q and its complement $\overline{{\rm Q}}$ where the preliminary rating
+for the latter is Certain, if Q has support (however indirectly) from a
+standard cocoon premise, discourse premise for the cocoon, and/or transfer
+rules, whereas $\overline{{\rm Q}}$ does not have such support, then the
+Certain rating for $\overline{{\rm Q}}$ is first downgraded to Presumed.
+(Notice that this does not affect cases where both or neither of Q,
+$\overline{{\rm Q}}$ have support of the type mentioned.)  As a result, the
+ordinary operation of ATT-Meta's rating reconciliation scheme can cause the
+downgrading of $\overline{{\rm Q}}$ to Suggested only, or its elimination.
+Elimination would happen with Q being that X's mind is a physical space, since
+this is a standard cocoon premise and therefore Certain. This defeats
+$\overline{{\rm Q}}$'s original Certain rating because that is first downgraded
+to Presumed.
+
+Finally, observe that there may be more than one hypothesis (I.Q) for a given
+Q, because Q may be supported within SR in more than one way.  It could be that
+metaphor-based reasoning only downgrades one such hypothesis.  Then, the rating
+of the proposition [X believes-$\rho$ Q] supported by rules of form R.Q is not,
+after all, affected. Also, in principle, an (I.Q) could have completely
+independent support from non-metaphorical, non-simulative reasoning, and this
+support might defeat the support from metaphor-based reasoning.
+
+
+
+
+
+\section{CONCLUSION} % 8
+
+ATT-Meta differs from other work on belief representation/reasoning mainly by
+taking account of the important phenomenon of metaphorical descriptions of
+mental states in discourse. In particular, these descriptions can clarify the
+way in which an agent believes something (as opposed to specifying what is
+believed). Such ways of believing can make a major difference in discourse
+understanding, for instance by explaining how agents can fail to see
+consequences of their beliefs.  Also, ATT-Meta is unique in having a systematic
+and well-motivated way of constraining the application of SR, namely by
+integrating it with metaphor-based reasoning.  The SR and metaphor-based
+reasoning are completely integrated into a powerful and practical
+uncertain/defeasible reasoning framework. The SR is unusual in distinguishing
+conscious belief as an important special case.
+
+ATT-Meta is one of the few implemented, or detailed theoretical, schemes for
+significant metaphor-based reasoning. (Others are Hobbs 1990 and Martin 1990.)
+We integrate metaphor-based reasoning into an uncertain reasoning framework
+much as Hobbs does, except that he uses abductive framework.  In addition, our
+scheme for metaphor-based reasoning is much like that of Hobbs, in that it
+usually proceeds by applying concepts and rules from the metaphor vehicle
+directly to the target items, rather than by translating them into
+target-domain concepts and rules. Some of the advantages of the approach are
+discussed in Barnden (1992).  ATT-Meta differs from Hobbs' and Martin's work in
+being concerned only with metaphors of mind.  Nevertheless, there is nothing in
+our approach that is peculiar to metaphors of mind, as opposed to metaphors for
+other abstract matters.  ATT-Meta currently handles only metaphor that is
+conventional to it. Our work therefore differs from, e.g., that of Fass (1991)
+and Iverson \& Helmreich (1992), who are concerned with working out the nature of
+novel(to-the-system) metaphors encountered in sentences. 
+
+Nevertheless, ATT-Meta can be creative in its use of any given metaphor,
+because any source-domain fact or rule can be opportunistically used during
+metaphor-based reasoning. For example, consider the sentence ``One part of
+Veronica was insisting that the recipe was wrong.'' We take this to exhibit
+what we call the MIND PARTS AS PERSONS metaphor.  Given that a normal inference
+from the fact that a real person insists something that some interlocutor of
+that person has said something that conflicts with it, ATT-Meta can conclude
+(within a metaphorical pretence cocoon) that some non-mentioned part of
+Veronica has said that the recipe was correct, and therefore presumably
+believes this. Notice that {\it there is no need here for any transfer rule to
+impinge on the notion of insisting.} In this way, all the richness of metaphor
+vehicle (source) domains is available for use.  This point is strengthened by
+the fact that the knowledge bases we have built up for the metaphor vehicles
+are not contrived for metaphorical use, but are designed to support ordinary
+reasoning within those domains. For instance, the physical rules in section 3
+are commonsensical rules that are useful for ordinary physical reasoning.
+
+
+In future work, we hope to address the following issues among others:
+%
+a formal Q-specification of the intended interpretation of the episodic logic;
+%
+a more powerful  specificity heuristic;
+%
+and
+%
+a more sophisticated treatment of Certain/Certain clashes within SR --- e.g.,
+one possibility is for the system to {\it postulate} a MIND AS PHYSICAL SPACE
+view of the agent, even if this is not directly indicated by the discourse, and
+then place the clashing propositions in different mind regions.  Also, ATT-Meta
+provides a promising framework for various interesting ways of nesting
+different types of reasoning.  The nesting of metaphor-based within simulative
+reasoning allows the ascription of metaphorical thinking about mental states to
+agents. This is a useful addition to ordinary nested belief reasoning. The
+nesting of belief reasoning, including SR, within metaphor-based reasoning
+allows SR to be applied to metaphorical ``persons'' in a metaphor vehicle. The
+nesting of metaphor-based reasoning inside itself allows the handling of
+chained metaphor (where aspects of a metaphor vehicle are themselves conceived
+metaphorically).
+
+In this work we have had to adopt provisional solutions to a number of
+difficult problems, both in representation and reasoning, aside from SR and
+metaphor-based reasoning themselves. For example, we have had to deal with the
+de-dicto/de-re distinction, indexicality in beliefs, complex episodes,
+representation of time and causality, and defeasible reasoning.  Our solutions
+to these issues are to some extent orthogonal to the main principles of
+simulative and metaphor-based reasoning that we have adopted, and are subject
+to change.
+
+
+
+\subsubsection*{Acknowledgements} 
+ 
+This work was supported in part by grants
+IRI-9101354 and CDA-8914670 from the National Science Foundation.
+We are grateful for extensive help from Kim Gor, Kanghong Li and Jan Wiebe.
+
+ 
+\subsubsection*{References} 
+ 
+
+Ballim, A. \& Wilks, Y. (1991).
+{\it Artificial believers: The ascription of belief.}
+Hillsdale, N.J.: Lawrence Erlbaum.
+
+
+Barnden, J.A. (1989).
+Belief, metaphorically speaking.
+In {\it Procs. 1st Intl. Conf. on Principles of Knowledge Representation and Reasoning} (Toronto, May 1989).
+San Mateo, CA: Morgan Kaufmann. pp.21--32.
+
+
+Barnden, J.A. (1992).
+Belief in metaphor: taking commonsense psychology seriously.
+{\it Computational Intelligence, 8} (3), pp.520--552.
+
+
+Barnden, J.A. (in press).
+Simulative reasoning, common-sense psychology and artificial intelligence.
+In M. Davies \& A. Stone (Eds), {\it Mental Simulation}, Oxford: Blackwell.
+
+
+Chalupsky, H. (1993).
+Using hypothetical reasoning as a method for belief ascription.
+{\it J. Experimental and Theoretical Artificial Intelligence, 5} (2\&3), pp.119--133.
+
+
+Creary, L. G. (1979). 
+Propositional attitudes: Fregean representation and simulative reasoning.
+{\it Procs. 6th. Int. Joint Conf. on Artificial Intelligence} (Tokyo), pp.176--181.
+Los Altos, CA: Morgan Kaufmann. 
+
+
+Dinsmore, J. (1991).
+{\it Partitioned representations: a study in mental representation, language processing and linguistic structure.}
+Dordrecht: Kluwer Academic Publishers.
+
+
+Fass, D. (1991).
+met*: A method for discriminating metonymy and metaphor by computer.
+{\it Computational Linguistics, 17} (1), pp.49--90.
+% Notes.
+
+
+Haas, A.R. (1986).
+A syntactic theory of belief and action.
+{\it Artificial Intelligence, 28,} 245--292.
+
+
+Hobbs, J.R. (1990).
+{\it Literature and cognition.}
+CSLI Lecture Notes, No. 21, Center for the Study of Language and Information, Stanford University.
+
+Iverson, E. \& Helmreich, S. (1992).  
+Metallel: an integrated approach to non-literal phrase interpretation.  
+{\it Computational Intelligence, 8} (3), pp.477--493.
+
+
+Kelleher, G. \& van der Gaag, L. (1993).
+The LazyRMS: Avoiding work in the ATMS.
+{\it Computational Intelligence, 9} (3), pp. 239--253.
+
+
+Konolige, K. (1986).
+{\it A deduction model of belief.} London: Pitman.
+
+
+Lakoff, G. (1993). 
+The contemporary theory of metaphor. 
+In A. Ortony (Ed.), {\it Metaphor and Thought}, 2nd edition, pp.202--251. 
+Cambridge, U.K.: Cambridge University Press. 
+
+
+Lakoff, G.,  Espenson, J. \& Schwartz, A. (1991).
+Master metaphor list. Draft 2nd Edition.
+Cognitive Linguistics Group, University of California at Berkeley, Berkely, CA.
+
+
+Martin, J.H. (1990).
+{\it A computational model of metaphor interpretation.}
+Academic Press.
+
+
+Moore, R. C. (1973).
+D-SCRIPT: A computational theory of descriptions.
+In {\it Advance Papers of the Third Int. Joint Conf. On Artificial Intelligence, } Stanford, Calif, pp.223--229.
+Also in {\it IEEE TRansactions on Computers, C-25} (4), 1976, pp.366--373.
+
+
+Schubert, L.K. \& Hwang, C.H. (1990).  
+An episodic knowledge representation for narrative texts.  
+Tech. Report 345, Computer Science Department, University of Rochester, Rochester, NY. May 1990.
+
+Wilensky, R. (1991).
+The ontology and representation of situations.
+In {\it Procs. 2nd Int. Conf. on the Principles of Knowledge Representation and Reasoning,} pp.558--569.
+
+
+
+ 
+\end{document} 

@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 2.0//EN">
+<!Converted with LaTeX2HTML 95 (Thu Jan 19 1995) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds >
+<HEAD>
+<TITLE> BELIEF REASONING</TITLE>
+</HEAD>
+<BODY>
+<meta name="description" value=" BELIEF REASONING">
+<meta name="keywords" value="kr-94.LA">
+<meta name="resource-type" value="document">
+<meta name="distribution" value="global">
+<P>
+ <BR> <HR><A NAME=tex2html96 HREF="node9.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html94 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html88 HREF="node7.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html97 HREF="node9.html"> METAPHORICAL REASONING</A>
+<B>Up:</B> <A NAME=tex2html95 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html89 HREF="node7.html"> REASONING BASICS</A>
+<BR> <HR> <P>
+<H1><A NAME=SECTION00060000000000000000> BELIEF REASONING</A></H1>
+ 
+<P>
+The central, but not the only, mode of belief reasoning in ATT-Meta is
+simulative reasoning (SR). SR has been proposed by a number of investigators as
+a relatively efficient technique for reasoning about agents' beliefs (Ballim &amp;
+Wilks 1991, Chalupsky 1993, Creary 1979, Dinsmore 1991, Haas 1986, Konolige
+1986, Moore 1973; although Konolige describes as simulation what we call
+explicit meta-reasoning, and calls SR a form of ``attachment'').  An SR system
+can intuitively be described as going into the agent's belief space, and
+reasoning within it by means of the system's own inference rules, acting on
+beliefs in the space; it then counts resulting conclusions as beliefs of the
+agent (perhaps only defeasibly). SR can also be described as the system
+pretending temporarily to adopt the agent's beliefs. SR is in contrast to using
+axioms or rules that constitute a meta-theory of agents' reasoning. The
+advantages of SR are discussed in some detail in Haas (1986) and Barnden (in
+press), and include the point that SR allows <i> any</i> style of base-level
+reasoning used by the system for ordinary purposes to be easily attributed to
+an agent, without the need for a separate meta-theory for each such style of
+reasoning --- abduction, induction, ATT-Meta-style defeasible/uncertain
+reasoning, or whatever.
+<P>
+ATT-Meta's SR is procedurally complex. We therefore describe it informally,
+though still precisely. First we give a thumbnail sketch.  The SR proceeds in a
+backwards, goal-directed way.  Suppose ATT-Meta is investigating the hypothesis
+that X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img55.gif"> P, where <IMG  ALIGN=BOTTOM ALT="" SRC="img56.gif"> is one of the confidence ratings
+from Possible to Certain.  ATT-Meta strips off the ``X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img57.gif">''
+to get the reasoning goal P within a simulation cocoon for X.  In the
+implementation, placing a proposition within a simulation cocoon consists of
+tagging it with the identity of the believer, X.  In its normal way, ATT-Meta
+also investigates the complement <IMG  ALIGN=BOTTOM ALT="" SRC="img58.gif"> of P within the cocoon.
+Hence, the SR might end up concluding that X believes <IMG  ALIGN=BOTTOM ALT="" SRC="img59.gif">
+rather than P.
+<P>
+Currently, any of ATT-Meta's own rules can be used within the X-simulation
+cocoon (i.e. can be applied to X-tagged propositions, yielding X-tagged
+conclusions).  However, in contrast with some other SR schemes, ATT-Meta's own
+propositions are <i> not</i> ascribed (by default) to the believer, i.e. imported
+into the cocoon.  (This reflects a very recent change in our approach. In fact,
+a provision at the end of this section embodies an opposite to default
+ascription.)  Rather, the only way for a proposition Q to enter the cocoon
+from outside is via a proposition (outside the cocoon) of the form [X
+believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img60.gif"> Q] for some <IMG  ALIGN=BOTTOM ALT="" SRC="img61.gif">.  Further, Q cannot be inserted in the
+cocoon unless ATT-Meta's rating for [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img62.gif"> Q] is Presumed or
+Certain. This is to limit the complexity of reasoning and to boost its
+definiteness.  In practice, ATT-Meta has many rules that can lead to
+propositions of form [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img63.gif"> Q], for general classes of agent. An
+example is a rule we appealed to in section 3, saying that if an agent X
+performs an action then, presumably, X consciously believes (s)he does so. (A
+further rule is needed here to go from conscious belief to belief <i>
+simpliciter</i>.) Notice that conclusions from such rules can be defeated by other
+information. For instance, the conclusion of the rule just mentioned could be
+defeated by a given Certain proposition that X does not believe (s)he performs
+the action.  Also, conclusions from SR can defeat the conclusions of such
+rules, or vice versa (depending on which way specificity comparisons go).
+<P>
+Let Q be P, <IMG  ALIGN=BOTTOM ALT="" SRC="img64.gif"> or a subgoal used in the reasoning within the
+cocoon towards P or <IMG  ALIGN=BOTTOM ALT="" SRC="img65.gif"> .  If Q is given rating <IMG  ALIGN=BOTTOM ALT="" SRC="img66.gif"> by
+reasoning within the cocoon, then the proposition that X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img67.gif"> Q is
+given a rating of Presumed outside the cocoon, barring interference from
+reasoning outside the cocoon.
+<P>
+Now we provide a complete description of the process. It is
+complex, but, as we will explain, for much of the time in practice only simple
+special cases arise.  With Q as above, the steps of the process applied to Q
+and <IMG  ALIGN=BOTTOM ALT="" SRC="img68.gif"> are in outline as follows. After the outline we will
+provide the detail.
+<P>
+<b> (A)</b>: <i> Simulation proper</i>. Because the reasoning is backwards, we assume
+that all reasoning towards Q and <IMG  ALIGN=BOTTOM ALT="" SRC="img69.gif"> has been done (by
+recursive application of the process we are now describing), and in particular
+that their ratings have been reconciled with each other.  Notice that one of Q,
+<IMG  ALIGN=BOTTOM ALT="" SRC="img70.gif"> may have been eliminated by a Certain rating for the
+other.
+<P>
+<b> (B)</b>: <i> Externalization.</i> Q and <IMG  ALIGN=BOTTOM ALT="" SRC="img71.gif"> are ``externalized'' to
+create hypotheses, outside the cocoon, of the following types:
+<P>
+<PRE><TT>  &#175;(i)  X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img72.gif"> Q
+<P>
+      		(ii)      		 not(X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img73.gif"> Q)
+<P>
+      		(iii)     		 X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img74.gif"> <IMG  ALIGN=BOTTOM ALT="" SRC="img75.gif">
+<P>
+      		(iv)      		 not(X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img76.gif"> <IMG  ALIGN=BOTTOM ALT="" SRC="img77.gif">)
+<P>
+</TT></PRE>
+<P>
+for various ratings <IMG  ALIGN=BOTTOM ALT="" SRC="img78.gif"> related to the ratings for Q and <IMG  ALIGN=BOTTOM ALT="" SRC="img79.gif">.
+The propositions of types (i) to (iv) are given particular preliminary ratings.
+<P>
+<b> (C)</b>: <i> Non-simulative phase</i>. The hypotheses introduced in (B) are now
+investigated by ordinary reasoning outside the cocoon, using any rules that
+address those hypotheses. (Of course, some of the hypotheses may coincide with
+given propositions.) In particular, special rules that mutually constrain
+propositions of types (i) to (iv) are available.  In this phase, a proposition
+introduced by (B) can have its rating upgraded or downgraded, or can be
+eliminated altogether.
+<P>
+<b> (D)</b>: <i> Consciousness attribution.</i> There may be a goal to show that Q
+is consciously believed by X, not just believed.  If so, and Q still exists and
+resulted within the cocoon from conscious beliefs, then that goal is given
+support.
+<P>
+<b> (E)</b>: <i> Re-internalization.</i> If any proposition of form [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img80.gif"> Q]
+still exists and has rating at least Presumed, then the final rating given to Q
+inside the cocoon is the maximum of the <IMG  ALIGN=BOTTOM ALT="" SRC="img81.gif"> values in such propositions.
+Similarly for <IMG  ALIGN=BOTTOM ALT="" SRC="img82.gif">. If no [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img83.gif"> Q/<IMG  ALIGN=BOTTOM ALT="" SRC="img84.gif">] exists anymore, then Q/<IMG  ALIGN=BOTTOM ALT="" SRC="img85.gif"> (resp.) is eliminated from
+the cocoon.
+<P>
+The following fleshes out steps (A) to (D) of the above outline.  (We use
+informal IF-THEN descriptions of rules, but they are straightforwardly
+expressible in the formalism).
+<P>
+<b> (For A)</b> Ratings for Q and <IMG  ALIGN=BOTTOM ALT="" SRC="img86.gif"> contributed by individual rules are
+reconciled with each other in the normal way, except that a Certain/Certain
+clash results only in the SR for X being halted, rather than in a global system
+error.  (A more sophisticated possible action is mentioned below as a future
+research item.)
+<P>
+<b> (B.1)</b> If Q is still present and has rating <IMG  ALIGN=BOTTOM ALT="" SRC="img87.gif">, then for each rule that
+contributed to Q within the cocoon by being applied to some propositions Q<IMG  ALIGN=BOTTOM ALT="" SRC="img88.gif">
+to Q<IMG  ALIGN=BOTTOM ALT="" SRC="img89.gif"> with ratings <IMG  ALIGN=BOTTOM ALT="" SRC="img90.gif"> to <IMG  ALIGN=BOTTOM ALT="" SRC="img91.gif">, the following goal is set up
+outside the cocoon, with an initial rating of Presumed:
+<P>
+(I.Q) X does-inference-step to Q with rating <IMG  ALIGN=BOTTOM ALT="" SRC="img92.gif"> from Q<IMG  ALIGN=BOTTOM ALT="" SRC="img93.gif">, <IMG  ALIGN=BOTTOM ALT="" SRC="img94.gif">, Q<IMG  ALIGN=BOTTOM ALT="" SRC="img95.gif">
+with ratings <IMG  ALIGN=BOTTOM ALT="" SRC="img96.gif"> to <IMG  ALIGN=BOTTOM ALT="" SRC="img97.gif">.
+<P>
+(Cf. schema (I) in section 3.)
+And, [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img98.gif"> Q] is regarded as having been supported 
+by the rule
+<P>
+(R.Q) IF ...(I.Q) as above ... AND X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img99.gif"> Q<IMG  ALIGN=BOTTOM ALT="" SRC="img100.gif"> AND ... AND X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img101.gif"> Q<IMG  ALIGN=BOTTOM ALT="" SRC="img102.gif"> 
+THEN [Certainly] X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img103.gif"> Q.
+<P>
+Since, by recursion over the process we are describing, the Q<IMG  ALIGN=BOTTOM ALT="" SRC="img104.gif"> do not exist
+in the cocoon unless X believes them to some degree, [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img105.gif"> Q] is
+given some degree of support by R.Q, using the normal scheme for ratings
+management in rule application. Normally, I.Q keeps its rating of Presumed, but
+it is investigated in the normal way and could be upgraded, downgraded or
+eliminated.
+<P>
+<IMG  ALIGN=BOTTOM ALT="" SRC="img106.gif"> is dealt with similarly, possibly giving rise to analogous
+propositions (I.<IMG  ALIGN=BOTTOM ALT="" SRC="img107.gif">) and rule (R.<IMG  ALIGN=BOTTOM ALT="" SRC="img108.gif">).
+<P>
+<b> (B.2)</b> Suppose <IMG  ALIGN=BOTTOM ALT="" SRC="img109.gif"> has rating Suggested inside the cocoon, and
+this resulted from a downgrade because of conflict with Q. Then ATT-Meta
+regards the following rules as having been applied, for each (I.Q) produced by
+step (B) for which <IMG  ALIGN=BOTTOM ALT="" SRC="img110.gif"> = Presumed:
+<P>
+(R<IMG  ALIGN=BOTTOM ALT="" SRC="img111.gif">.<IMG  ALIGN=BOTTOM ALT="" SRC="img112.gif">) IF ...(I.Q) as above ... AND X
+believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img113.gif"> Q<IMG  ALIGN=BOTTOM ALT="" SRC="img114.gif"> AND ... AND X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img115.gif"> Q<IMG  ALIGN=BOTTOM ALT="" SRC="img116.gif">  THEN [Certainly] not(X believes-Presumed <IMG  ALIGN=BOTTOM ALT="" SRC="img117.gif">).
+<P>
+Q is treated similarly.
+<P>
+<b> (For C)</b> The special rules mentioned above are defined by the following schemata.
+<IMG  ALIGN=BOTTOM ALT="" SRC="img118.gif"> and <IMG  ALIGN=BOTTOM ALT="" SRC="img119.gif"> stand for any ratings where <IMG  ALIGN=BOTTOM ALT="" SRC="img120.gif"> Possible.
+<P>
+<PRE><TT> (RB1) IF &#175;<b>Y</b> believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img121.gif"> <b>B</b> THEN [Certainly]
+<P>
+           		   		<b>Y</b> believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img122.gif"> <b>B</b>
+<P>
+(RB1<IMG  ALIGN=BOTTOM ALT="" SRC="img123.gif">) 		IF not(<b>Y</b> believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img124.gif"> <b>B</b>) THEN [Certainly]
+<P>
+           		   		not(<b>Y</b> believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img125.gif"> <b>B</b>)
+<P>
+(RB2)      		IF <b>Y</b> believes-Certain <b>B</b> THEN [Presumably]
+<P>
+           		   		not(<b>Y</b> believes-Possible <IMG  ALIGN=BOTTOM ALT="" SRC="img126.gif">)
+<P>
+(RB2<IMG  ALIGN=BOTTOM ALT="" SRC="img127.gif">) 		IF <b>Y</b> believes-Possible <b>B</b> THEN [Presumably]
+<P>
+           		   		not(<b>Y</b> believes-Certain <IMG  ALIGN=BOTTOM ALT="" SRC="img128.gif">)
+<P>
+(RB3)      		IF <b>Y</b> believes-Presumed <b>B</b> THEN [Presumably]
+<P>
+           		   		not(<b>Y</b> believes-Presumed <IMG  ALIGN=BOTTOM ALT="" SRC="img129.gif">).
+<P>
+</TT></PRE>
+<P>
+A Presumed/Presumed clash between X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img130.gif"> Q<IMG  ALIGN=BOTTOM ALT="" SRC="img131.gif"> and not(X
+believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img132.gif"> Q<IMG  ALIGN=BOTTOM ALT="" SRC="img133.gif">), where Q<IMG  ALIGN=BOTTOM ALT="" SRC="img134.gif"> is either Q or <IMG  ALIGN=BOTTOM ALT="" SRC="img135.gif">, is treated in the normal way.
+<P>
+Once the reasoning of this phase is complete, ATT-Meta applies a closed-world
+assumption to X's belief in Q and X's belief in <IMG  ALIGN=BOTTOM ALT="" SRC="img136.gif">.  If
+<IMG  ALIGN=BOTTOM ALT="" SRC="img137.gif"> is the maximum rating such that [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img138.gif"> Q] has a rating of
+Presumed or Certain, then ATT-Meta gives a Presumed rating to not[X
+believes<IMG  ALIGN=BOTTOM ALT="" SRC="img139.gif"> Q] for each <IMG  ALIGN=BOTTOM ALT="" SRC="img140.gif"> higher than <IMG  ALIGN=BOTTOM ALT="" SRC="img141.gif"> (unless that
+proposition already has a rating of Presumed or Certain). Similarly for
+<IMG  ALIGN=BOTTOM ALT="" SRC="img142.gif">.
+<P>
+<b> (For D)</b> Consciousness attribution is handled in part by a ``conscious''
+counterpart for each rule of type (R.Q) or (R.<IMG  ALIGN=BOTTOM ALT="" SRC="img143.gif">) as defined
+in (B.1).  This counterpart just has ``believes'' replaced by ``consciously
+believes'' throughout. In addition, ordinary non-simulative reasoning within
+(C) can lead directly to conclusions of form [X consciously-believes Q], or
+similarly with <IMG  ALIGN=BOTTOM ALT="" SRC="img144.gif">. In particular, we have made use of rules
+such as the following for specific sorts of belief B: IF Y believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img145.gif"> B
+AND Y is conscious THEN [Presumably] Y consciously-believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img146.gif"> B.
+<P>
+That completes the description of SR.  Although the process is quite
+complicated in general, it is in practice relatively unusual for both (A) and
+(C) to involve a significant amount of processing.  If (A) does do so but (C)
+does not, then essentially (B) and (D) leave the results of (A) unchanged.
+Conversely, if (C) involves significant reasoning but (A) and (B) are trivial
+because Q and <IMG  ALIGN=BOTTOM ALT="" SRC="img147.gif"> find no support within the cocoon, then
+essentially (D) just strips off belief layers from positive belief propositions
+established by (C).  Also, the process is optimized by means of special
+processing steps in the implementation.  For instance, the RB... and (R.Q)
+rules are not explicit in the implementation.
+<P>
+When both (A) and (C) are significant, some interesting effects can arise.  In
+particular, a downgrade during (A) of Q or <IMG  ALIGN=BOTTOM ALT="" SRC="img148.gif"> because of a
+Presumed/Presumed clash within the cocoon can be reversed by (C). For example,
+there might be a given, Certain proposition that X believes-Presumed Q,
+preventing a downgrade of Q. The prevention happens thus: during (C), that
+given proposition defeats the Presumed proposition arising from (B.2) that X
+does not believe-Presumed Q. As a result, during (D), Q is given a rating of
+Presumed.
+<P>
+During (C), a Presumed/Presumed conflict between a proposition of one of the
+forms (i) to (iv) and its complement can bring in a specificity comparison, as
+normal. The rules of form (R.Q), (R.<IMG  ALIGN=BOTTOM ALT="" SRC="img149.gif">), (R<IMG  ALIGN=BOTTOM ALT="" SRC="img150.gif">) and
+(R<IMG  ALIGN=BOTTOM ALT="" SRC="img151.gif">.<IMG  ALIGN=BOTTOM ALT="" SRC="img152.gif">) allow the comparison to look back to the way
+that the believings on the LHSs of those rules were established, with the
+reasoning within the cocoon  being invisible to the process.
+<P>
+The SR scheme as described can also be used with SR, allowing nested belief to
+be handled. However, we have not yet intensively investigated this matter.
+<P>
+
+<P>
+ATT-Meta's top-level reasoning goal when faced with discourse fragments like
+(1--1a/b/c/d) in section 2 is currently set by hand and is to the effect that
+some disparity in the discourse is resolved because of explanation <b>e</b>, where
+<b>e</b> is a variable in the goal and is bound as a result of satisfying the goal.
+Such goals match the RHSs of rules such as R.2 and R.5 in section 2.  The
+disparity is currently not detected by ATT-Meta itself.
+<P>
+<BR> <HR><A NAME=tex2html96 HREF="node9.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html94 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html88 HREF="node7.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html97 HREF="node9.html"> METAPHORICAL REASONING</A>
+<B>Up:</B> <A NAME=tex2html95 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html89 HREF="node7.html"> REASONING BASICS</A>
+<BR> <HR> <P>
+<BR> <HR>
+<P><ADDRESS>
+<I>John Barnden <BR>
+Fri Sep 15 16:01:18 MDT 1995</I>
+</ADDRESS>
+</BODY>

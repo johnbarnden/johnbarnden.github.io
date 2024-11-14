@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 2.0//EN">
+<!Converted with LaTeX2HTML 95 (Thu Jan 19 1995) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds >
+<HEAD>
+<TITLE> REASONING BASICS</TITLE>
+</HEAD>
+<BODY>
+<meta name="description" value=" REASONING BASICS">
+<meta name="keywords" value="kr-94.LA">
+<meta name="resource-type" value="document">
+<meta name="distribution" value="global">
+<P>
+ <BR> <HR><A NAME=tex2html86 HREF="node8.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html84 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html78 HREF="node6.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html87 HREF="node8.html"> BELIEF REASONING</A>
+<B>Up:</B> <A NAME=tex2html85 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html79 HREF="node6.html"> REPRESENTATION SCHEME</A>
+<BR> <HR> <P>
+<H1><A NAME=SECTION00050000000000000000> REASONING BASICS</A></H1>
+ 
+<P>
+ATT-Meta's reasoning is centered on a goal-directed, backwards-chaining usage
+of production rules that link episodes to episodes (rather than formulae to
+formulae).  Each rule has the form
+<P>
+ <tt> <b>&lt;</b>LHS<b>&gt;</b> <IMG  ALIGN=BOTTOM ALT="" SRC="img24.gif"> [<b>&lt;</b>qualifier<b>&gt;</b>] <b>&lt;</b>RHS<b>&gt;</b></tt>,
+<P>
+where the LHS is a list of episode-denoting terms (typically of the form <tt>
+#ep(...)</tt> possibly containing free variables, the RHS is one such term, and <b>&lt;</b>qualifier<b>&gt;</b> is
+one of Suggested, Presumed, or Certain. Also, a term <b>e</b>, or
+a sublist of terms on the LHS, can be embedded in a metaphorical cocoon
+designator as follows: <tt> [WITHIN-COCOON <IMG  ALIGN=BOTTOM ALT="" SRC="img25.gif">: <IMG  ALIGN=BOTTOM ALT="" SRC="img26.gif"> <b>e</b>]</tt>. Here <IMG  ALIGN=BOTTOM ALT="" SRC="img27.gif"> is
+an (agent-denoting) term (usually a variable) and <IMG  ALIGN=BOTTOM ALT="" SRC="img28.gif"> is the name of a
+metaphor such as MIND AS PHYSICAL SPACE.
+<P>
+An (unrealistic) example of a  rule is
+<P>
+<PRE><TT>  &#175;<tt> #ep(Loving, <b>t</b>, <b>x</b>, <b>y</b>), #ep(Being-Boy, <b>t</b>, <b>x</b>)</tt>
+<P>
+      		<IMG  ALIGN=BOTTOM ALT="" SRC="img29.gif"> <tt> [Presumed] #ep(Being-Hungry, <b>t</b>, <b>x</b>).</tt>
+<P>
+</TT></PRE>
+<P>
+This says that any boy who loves something at/over some time t is, presumably, hungry at/over t. Suppose ATT-Meta is investigating the proposition
+that Mark is hungry during a time interval denoted by some term <IMG  ALIGN=BOTTOM ALT="" SRC="img30.gif">.
+Then it sets up the episode-term <tt>
+#ep(Being-Hungry, <IMG  ALIGN=BOTTOM ALT="" SRC="img31.gif">, Mark)</tt> as a subgoal.  (We use the term
+``proposition'' loosely to mean an episode-denoting term that has either been
+given a rating of at least Possible, or is an existing reasoning goal.)  It
+finds the above rule, and instantiates its <b>t</b> and <b>x</b> variables to <tt> now</tt>
+and <tt> Mark</tt>.  Suppose ATT-Meta already has the formulae
+<P>
+<PRE><TT>  &#175;<tt> #certain(Loving, <IMG  ALIGN=BOTTOM ALT="" SRC="img32.gif">, Mark, Mary)</tt>
+<P>
+      		<tt> #certain(Being-Boy, <IMG  ALIGN=BOTTOM ALT="" SRC="img33.gif">, Mark).</tt>
+<P>
+</TT></PRE>
+<P>
+As a result, ATT-Meta creates the formula <tt>
+#presumed(#ep(Being-Hungry, <IMG  ALIGN=BOTTOM ALT="" SRC="img34.gif">, Mark)).</tt> If there were other rules also
+providing evidence for the Mark-hungry goal, then the qualifier assigned would
+be the maximum of the qualifiers suggested by the individual rules, where
+Suggested is less then Presumed which is less than Certain.
+<P>
+Also, the LHS terms can match with Suggested and Presumed episodes,
+not just Certain ones as in our example. Then the qualifier suggested by
+the rule for the RHS episode is the minimum of the certainty levels picked up
+by the LHS terms and the <b>&lt;</b>qualifier<b>&gt;</b> in the rule itself. So, if is only
+Suggested that Mark loves Mary, then from the rule it would only get a
+Suggested rating for Mark being hungry.
+<P>
+When ATT-Meta investigates a
+goal-episode (e.g. Mark being hungry), it automatically investigates its
+negation as well. Suppose there are rules that could provide evidence for the
+negation (so an RHS could have the form <tt>
+#ep-neg(#ep(Being-Hungry, <b>t</b>, <b>x</b>))</tt>.  Let us say that the maximum
+of the confidence levels for the original hypothesis is P, and the maximum for
+the negated hypothesis is N. (Each of N or P is always at least Suggested.)
+Then ATT-Meta proceeds as follows: If P and N are both  Certain, then a
+genuine error condition has arisen and ATT-Meta halts.  Otherwise, if one is
+Certain, then it prevails and the other goal is deleted.  Otherwise, both
+the original goal and its negation are given ratings by the following <i>
+rating reconciliation scheme</i>:
+
+if one or both of P, N are Suggested then they are accepted as the
+certainty levels of the two hypotheses;
+
+and if P, N are both Presumed, then, unless there is reason to prefer one
+presumption over the other, both hypotheses are ``downgraded'' by being given a
+rating of Suggested.  Currently, the only way in which a one presumption can be
+preferred over another is through a <i> specificity comparison heuristic</i>.
+<P>
+We are actively investigating the question of how to compare
+specificity.  We describe here one crude, preliminary
+approach that we are experimenting with. The defined more-specific-than
+relation is irreflexive and antisymmetric, but it is not transitive and is
+therefore not a partial order. It is not yet clear how important this
+deficiency is.
+<P>
+Let R be a rule that contributed a Presumed rating to a proposition P.  Then
+the set of propositions to which R was applied is an <i> immediate basis</i> (IB)
+for P.  Also, if P is a given proposition, then one IB for P is just <IMG  ALIGN=BOTTOM ALT="" SRC="img35.gif">P<IMG  ALIGN=BOTTOM ALT="" SRC="img36.gif">.
+It may have other IBs because a given proposition may also be supported by
+rules.
+<P>
+With Q as above, we give preference to Q over <IMG  ALIGN=BOTTOM ALT="" SRC="img37.gif"> if the
+support for Q is more <i> Q-specific</i> than the support for <IMG  ALIGN=BOTTOM ALT="" SRC="img38.gif">.  The support for a proposition S1 is more Q-specific than the support for
+a proposition S2 <i> iff</i> some IB for S1 is more Q-specific than some IB for
+S2 and not less Q-specific than any IB for S2, <i> and</i> any IB for S2 that is
+more Q-specific than some for S1 is also less Q-specific than some for S1.
+(Our more-specific-than relation is relative to Q because of condition (b)
+below.  ``Q-specific'' is synonymous with ``<IMG  ALIGN=BOTTOM ALT="" SRC="img39.gif">-specific.'')
+)
+<P>
+IB1 is more Q-specific than IB2 <i> iff</i> each proposition P in IB2 is either in
+IB1 or less Q-specific than IB1 <i> and</i> there is a proposition in
+IB1<IMG  ALIGN=BOTTOM ALT="" SRC="img40.gif">IB2 that is not less Q-specific than IB2.  Proposition P is less
+Q-specific than proposition set IB <i> iff</i>
+<P>
+(a) P can be derived just from IB but the propositions in IB cannot all be
+derived just from P; or:
+<P>
+(b) neither of P, IB can be derived just from the other, and some proposition
+in IB is ``closer'' to Q than P is (see below); or:
+<P>
+(c) neither of P, IB can be derived just from the other, P is incomparable as
+to Q-closeness with each proposition in IB, and the support for P is less
+Q-specific than the support for some proposition in IB.
+<P>
+P1 is <i> closer</i> than P2 to Q under the following conditions:
+<P>
+(b1) Q is about (exactly) one agent X's mental state, P1 is about X's mental state, but P2
+is not; or
+<P>
+(b2) Q is about one agent X's mental state, P1 is about X, but P2 is not.
+<P>
+Derivability in (a) is examined using heuristically limited techniques; and
+note that the derivability check is a matter of examining the implementation's
+inter-proposition dependency links rather than undertaking more reasoning. The
+recursion introduced by (c) must be limited because of circularities, notably
+those introduced by <IMG  ALIGN=BOTTOM ALT="" SRC="img41.gif">P<IMG  ALIGN=BOTTOM ALT="" SRC="img42.gif"> being an IB of P when P is a given proposition.
+Provision (b) is closely tailored to the purposes of ATT-Meta, but it is a
+special case of a general principle: <i> if one is trying to establish
+something, Q, and some proposition P1 is closer in subject matter to Q than
+some other proposition P2 is, then one should tend to give more weight to P1
+than to P2.</i> In turn, this general principle is a natural generalization of the
+normal overriding-of-inheritance principle commonly employed in semantic
+networks. For a given node, closer ancestors are closer in subject matter to
+the node than more distant ancestors are. Aboutness in (b1,2) is assessed in a
+simple, crude way.
+<P>
+As an example of the use of the Q-specificity heuristic, consider the
+hypothesis in the (1--1c) example in section 2 that 
+
+<P>
+Veronica consciously believed that the recipe was wrong. 
+
+Let this be Q. Q gets an initial
+Presumed rating only via rule R.1 from the propositions that (i) she followed
+the recipe and (ii) she believed the recipe to be wrong. Here (i) is a given
+proposition (with no rule-based support) and (ii) is derived by one rule
+application from the given proposition that (iii) she believed in the recesses
+of her mind that the recipe was wrong. On the other hand, not-Q (i.e.
+<IMG  ALIGN=BOTTOM ALT="" SRC="img43.gif">) gets an initial Presumed rating from (iii) via TR.5 only.
+So, the only IB for Q is <IMG  ALIGN=BOTTOM ALT="" SRC="img44.gif">(i),(ii)<IMG  ALIGN=BOTTOM ALT="" SRC="img45.gif"> and the only IB for not-Q is
+<IMG  ALIGN=BOTTOM ALT="" SRC="img46.gif">(iii)<IMG  ALIGN=BOTTOM ALT="" SRC="img47.gif">.  Here (ii) is less Q-specific than <IMG  ALIGN=BOTTOM ALT="" SRC="img48.gif">(iii)<IMG  ALIGN=BOTTOM ALT="" SRC="img49.gif"> since (ii) is
+derivable from just (iii) (but not vice versa). Also, (i) is less Q-specific
+than <IMG  ALIGN=BOTTOM ALT="" SRC="img50.gif">(iii)<IMG  ALIGN=BOTTOM ALT="" SRC="img51.gif"> by condition (b1) above. It is also easy to see that (iii)
+is not less Q-specific than <IMG  ALIGN=BOTTOM ALT="" SRC="img52.gif">(i),(ii)<IMG  ALIGN=BOTTOM ALT="" SRC="img53.gif">.  Therefore, <IMG  ALIGN=BOTTOM ALT="" SRC="img54.gif">'s only IB is more Q-specific than Q's only IB, and only Q is downgraded to
+Suggested.
+<P>
+Finally, we can only briefly mention an important truth-maintenance algorithm
+used in the implementation.  Because of the common phenomenon of circularities
+in the inter-hypothesis derivation graph, and because of the above downgrading
+of Presumed ratings to Suggested, ATT-Meta must sometimes traverse parts of the
+graph, adjusting confidence ratings in order to satisfy some constraints. The
+updating is done lazily (i.e., on demand). (Cf. the lazy type of ATMS studied
+by Kelleher &amp; van der Gaag 1993).
+<P>
+<BR> <HR><A NAME=tex2html86 HREF="node8.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html84 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html78 HREF="node6.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html87 HREF="node8.html"> BELIEF REASONING</A>
+<B>Up:</B> <A NAME=tex2html85 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html79 HREF="node6.html"> REPRESENTATION SCHEME</A>
+<BR> <HR> <P>
+<BR> <HR>
+<P><ADDRESS>
+<I>John Barnden <BR>
+Fri Sep 15 16:01:18 MDT 1995</I>
+</ADDRESS>
+</BODY>

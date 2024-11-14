@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 2.0//EN">
+<!Converted with LaTeX2HTML 95 (Thu Jan 19 1995) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds >
+<HEAD>
+<TITLE> REPRESENTATION SCHEME</TITLE>
+</HEAD>
+<BODY>
+<meta name="description" value=" REPRESENTATION SCHEME">
+<meta name="keywords" value="kr-94.LA">
+<meta name="resource-type" value="document">
+<meta name="distribution" value="global">
+<P>
+ <BR> <HR><A NAME=tex2html76 HREF="node7.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html74 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html68 HREF="node5.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html77 HREF="node7.html"> REASONING BASICS</A>
+<B>Up:</B> <A NAME=tex2html75 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html69 HREF="node5.html"> METAPHOR-BASED REASONING</A>
+<BR> <HR> <P>
+<H1><A NAME=SECTION00040000000000000000> REPRESENTATION SCHEME</A></H1>
+ 
+<P>
+ATT-Meta's representations are expressions in a first-order logic with equality
+and with set description devices (that are syntactic sugar for first-order
+expressions). The logic is episodic, in that terms can denote ``episodes'' and
+sets of them.  Our logical representations are similar in spirit to those of
+Hobbs (1990), Schubert &amp; Hwang (1990) and Wilensky (1991). They are,
+overall, closest to Wilensky's, but the treatment of belief is similar to Hobbs'
+and different from those of Wilensky and Schubert &amp; Hwang.  In common with
+Schubert &amp; Hwang, we take an episode to be any sort of situation, event or
+process. An episode has a time, which can be an instant, a bounded interval,
+or an unbounded interval.  Time instants and time intervals are just objects
+in the domain (of the intended interpretation), just like any other object. We
+have no space here to go into the detail of the handling of time or causation,
+and in any case ATT-Meta's reasoning about time is currently limited.
+The detail we do give here is just what is most directly relevant to the aim of
+this paper (i.e. to explain ATT-Meta's mixing of belief reasoning and
+metaphor-based reasoning).
+<P>
+Objects in the domain can be ``non-certain'' or ``certain.'' For instance, the
+episode of John kissing Mary at <b>&lt;</b>some time<b>&gt;</b> could be non-certain. That is,
+ATT-Meta would not take the kissing to be necessarily real.  The basic type of
+term for denoting an episode is illustrated by:
+<P>
+ <tt> #ep(Kissing, <IMG  ALIGN=BOTTOM ALT="" SRC="img14.gif">, John, Mary).</tt>
+<P>
+<tt> Kissing</tt> denotes the set of all conceivable kissing episodes.  <IMG  ALIGN=BOTTOM ALT="" SRC="img15.gif"> is
+some term denoting a specific time interval, and the other arguments denote
+particular entities (which can be non-certain).  We assume that a kissing
+episode is uniquely specified by the time interval and the identity of the
+participants.  If a kissing episode has other aspects, for instance a manner,
+then these can be specified on the side, as i: <tt> <b>e</b> = #ep(Kissing,
+...) <IMG  ALIGN=BOTTOM ALT="" SRC="img16.gif"> manner(<b>e</b>) = lovingly</tt>, for some constant or variable <b>e</b>.
+<P>
+Episodes with the same time as each other can be compounded by conjunction and
+disjunction, using function symbols <tt> #ep-conj</tt> and <tt> #ep-disj</tt>. 
+For example, the  term
+<P>
+<PRE><TT>  <tt> #ep-conj(</tt>&#175;<tt> #ep(Being-Happy, <IMG  ALIGN=BOTTOM ALT="" SRC="img17.gif">, John),</tt>
+<P>
+                      		<tt> #ep(Being-Sad, <IMG  ALIGN=BOTTOM ALT="" SRC="img18.gif">, Bill))</tt>
+<P>
+</TT></PRE>
+<P>
+denotes the episode of John being happy and Bill being sad at/over <IMG  ALIGN=BOTTOM ALT="" SRC="img19.gif">.
+Episode disjunction and negation is similar.  There is also a way for
+expressing quantificational episodes, such as the episode of John loving each
+of his sisters over interval i, or the episode of some person in a given room
+laughing at John during interval i.  The quantificational apparatus is simple,
+but its design required attention to subtleties raised by having to allow for
+non-certain episodes and other entities.  For instance, the episode of all dogs
+being happy over interval <IMG  ALIGN=BOTTOM ALT="" SRC="img20.gif"> must be defined independently of which
+entities really are dogs (according to ATT-Meta) but must instead map all
+conceivable being-a-dog situations to corresponding being-happy situations.
+<P>
+Non-certain entities episodes can have the status of <i> Possible</i>, <i>
+Suggested</i> or <i> Presumed</i>.  <i> Possible</i> means that the episode may be
+real (its negation is not certain). <i> Suggested</i> means there is some reason
+to think the episode is real.  <i> Presumed</i> means ATT-Meta is presuming the
+episode is real. These degrees of uncertainty are stated by means of
+predications such as <tt>
+#presumed(#ep(Kissing,...)).</tt><A NAME=tex2html2 HREF="footnode.html#161"><IMG ALIGN=BOTTOM ALT="gif" SRC="http://cbl.leeds.ac.uk/nikos/figs//foot_motif.gif"></A>
+
+  
+Any formulae at the top level in the system are (implicitly) certain --- it is
+only episodes (and other domain entities) that are qualified as to certainty.
+<P>
+We now turn to mental states, concentrating here exclusively on the central
+case of belief. We have several modes of belief representation, one default 
+mode and various different modes corresponding to different metaphors of mind
+used in mental state descriptions. The default mode is used, for instance, when
+a belief is reported non-metaphorically, as in ``Bill believes that John was
+ill on <b>&lt;</b>some date<b>&gt;</b>.''  Under the default mode, this state of belief is cast as
+an episode of Bill being in a particular relationship to the episode of John
+being ill on the date in question. The formula we use is
+<P>
+<PRE><TT> <tt> #certain(</tt>
+<P>
+ <tt> #ep(#Belie</tt>&#175;<tt> ving-Certain, now, Bill,</tt>
+<P>
+                        		<tt> #ep(Being-Ill, John, <IMG  ALIGN=BOTTOM ALT="" SRC="img21.gif">)))</tt>
+<P>
+</TT></PRE>
+<P>
+where <IMG  ALIGN=BOTTOM ALT="" SRC="img22.gif"> denotes the time interval for the specified date, <tt> now</tt>
+denotes some time interval including the current instant, and
+<tt> #Certain-Believing</tt> denotes the set of all conceivable episodes of an
+agent believing something with certainty. Notice the two different layers
+of certainty qualification: ATT-Meta has one degree of certainty that Bill
+had the belief, and Bill, if he does have the belief, has his own degree
+of certainty. The two layers are independent, so that we might
+alternatively have
+<P>
+<PRE><TT> <tt> #suggested(</tt>
+<P>
+ <tt> #ep(#Belie</tt>&#175;<tt> ving-Presumed, now, Bill,</tt>
+<P>
+                        		<tt> #ep(Being-Ill, John, <IMG  ALIGN=BOTTOM ALT="" SRC="img23.gif">)))</tt>.
+<P>
+</TT></PRE>
+<P>
+Note that we take Bill's being certain of something as implying that he
+presumes it (i.e. he ``believes-presumed'' it), and believing-presumed
+similarly implies believing-suggested.  Conscious belief is represented
+similarly, but using episode kinds <tt>
+#Consciously-Believing-Certain</tt>, etc.
+<P>
+Finally, we sketch the most important aspect of the representation, which is
+how ATT-Meta expresses belief states that are described metaphorically in the
+input discourse. The basic principle here is that of <i> metaphor-infused
+representation</i>. That is, ATT-Meta pretends to take the metaphorical descriptions
+literally, and uses the ordinary episode kinds that are used within the
+source domain (or ``vehicle'') of the metaphor. For example, consider the
+sentence, <i> The idea that Sally is clever is in Xavier's mind.</i> In line with
+our comments on the productivity of metaphor in section 2, we take this sentence
+to be a manifestation of MIND AS PHYSICAL SPACE.  The encoding of the sentence is
+<P>
+<PRE><TT> <tt> [WITHIN Xavier's-MIND AS PHYSICAL SPACE cocoon</tt>
+<P>
+<tt> #certain(</tt>
+<P>
+ <tt> #</tt>&#175;<tt> ep-conj(</tt>
+<P>
+              		<tt> #ep(Being-Physical-Object-Type, t, i),</tt>
+<P>
+              		<tt> #ep(Being-Physical-Space, t, m),</tt>
+<P>
+              		<tt> #ep(Being-Mind-Of, t, m, Xavier),</tt>
+<P>
+              		<tt> #ep(Inst-Being-Physically-In, t,i,m),</tt>
+<P>
+              		<tt> #ep(Being-</tt>&#175;<tt> Agent's-Certain-Idea-Of,t,Xavier,i,</tt>
+<P>
+              		                 		<tt> #ep(Being-Clever,t,Sally))).</tt>
+<P>
+<tt> ]</tt>
+<P>
+</TT></PRE>
+<P>
+where <tt> t, i</tt>, etc. are Skolem constants.  Here <tt>
+Inst-Being-Physically-In</tt> is the set of all conceivable situations of an
+instance of some physical-object type being <i> physically</i> in something.  The
+idea (denoted by <tt> i</tt>) of Sally's (certainly) being clever is stated to be a
+physical-object type, Xavier's mind (<tt> m</tt>) is stated to be a physical space,
+and and instance of <tt> i</tt> is stated to be physically in <tt> m</tt>.
+<P>
+We therefore do <i> not</i> represent the meaning of the sentence by translating
+the metaphorical input into non-metaphorical internal representations: the
+internal representations are themselves metaphorical.  Note that we are not
+saying that ATT-Meta really believes that, say, an idea is a physical-object
+type --- in a sense ATT-Meta merely pretends temporarily to believe it, because
+the representation is within the stated cocoon.
+<P>
+Below, two propositions are <i> complements</i> iff one is the negation of the
+other.  Also, a <i> given proposition</i> is either a piece of knowledge in
+ATT-Meta's own knowledge base or is a proposition derived directly from the
+discourse.  In the latter case it has a rating of Certain.
+<P>
+<BR> <HR><A NAME=tex2html76 HREF="node7.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html74 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html68 HREF="node5.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html77 HREF="node7.html"> REASONING BASICS</A>
+<B>Up:</B> <A NAME=tex2html75 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html69 HREF="node5.html"> METAPHOR-BASED REASONING</A>
+<BR> <HR> <P>
+<BR> <HR>
+<P><ADDRESS>
+<I>John Barnden <BR>
+Fri Sep 15 16:01:18 MDT 1995</I>
+</ADDRESS>
+</BODY>

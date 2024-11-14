@@ -1,0 +1,32 @@
+This is TeX, C Version 3.0 (format=lplain 91.5.24)  15 SEP 1995 16:02
+**&latex images.tex
+(images.tex
+LaTeX Version 2.09 <7 Dec 1989>
+
+! I can't find file `article.sty'.
+<to be read again> 
+                   \relax 
+\@documentstyle ...ionfiles {}\input #2.sty\relax 
+                                                  \let \@elt \input \@option...
+l.8 \documentstyle[proceedings]{article}
+                                        
+Please type another input file name
+! Emergency stop.
+<to be read again> 
+                   \relax 
+\@documentstyle ...ionfiles {}\input #2.sty\relax 
+                                                  \let \@elt \input \@option...
+l.8 \documentstyle[proceedings]{article}
+                                        
+*** (job aborted, file error in nonstop mode)
+
+ 
+Here is how much of TeX's memory you used:
+ 6 strings out of 6963
+ 41 string characters out of 63233
+ 22848 words of memory out of 262141
+ 1972 multiletter control sequences out of 9500
+ 18996 words of font info for 72 fonts, out of 72000 for 255
+ 14 hyphenation exceptions out of 607
+ 4i,0n,5p,56b,7s stack positions out of 300i,40n,60p,3000b,4000s
+No pages of output.

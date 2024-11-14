@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 2.0//EN">
+<!Converted with LaTeX2HTML 95 (Thu Jan 19 1995) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds >
+<HEAD>
+<TITLE> METAPHORICAL REASONING</TITLE>
+</HEAD>
+<BODY>
+<meta name="description" value=" METAPHORICAL REASONING">
+<meta name="keywords" value="kr-94.LA">
+<meta name="resource-type" value="document">
+<meta name="distribution" value="global">
+<P>
+ <BR> <HR><A NAME=tex2html106 HREF="node10.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html104 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html98 HREF="node8.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html107 HREF="node10.html"> CONCLUSION</A>
+<B>Up:</B> <A NAME=tex2html105 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html99 HREF="node8.html"> BELIEF REASONING</A>
+<BR> <HR> <P>
+<H1><A NAME=SECTION00070000000000000000> METAPHORICAL REASONING</A></H1>
+ 
+<P>
+Hypotheses of form (I.Q) above (or, of course, I.<IMG  ALIGN=BOTTOM ALT="" SRC="img153.gif">)
+introduced by steps (B.1) and (B.2) of SR provide a means whereby
+meta-reasoning about an agent's individual reasoning steps can be applied to
+affect the course of SR.  Such reasoning might downgrade or upgrade those
+hypotheses, thus affecting the strength of the conclusions reached by rules
+such as (R.Q). We have studied metaphor-based reasoning that affects (in fact,
+only ever downgrades) the hypotheses (I.Q), but, in principle, non-metaphorical
+reasoning could also do so. In particular, limitations on the amount of
+reasoning the agent is assumed to be able to do could be brought into the
+picture.
+<P>
+We concentrate here on the effect of metaphor on hypotheses (I.Q), but a
+metaphor-based inference can also say something direct about an agent's belief.
+For instance, in section 3, an IDEAS AS INTERNAL UTTERANCES inference directly
+produced the conclusion that a particular belief was conscious.
+<P>
+When a hypothesis (I.Q) is created, one sort of rule that might attack it (i.e.
+support its negation) is a metaphorical ``transfer'' rule such as TR.2 in
+section 3.  Through the ordinary process of backwards rule usage, this causes
+subgoals to be set up inside the (X,M) metaphorical pretence cocoon specified
+by the rule, if that cocoon exists. Here X is the agent and M is the name of
+the metaphor.  A special action is to try to establish whether the cocoon
+exists.  Currently, the cocoon only exists if a metaphorical belief
+representation (as at the end of section 4) has been set up as a direct
+result of one the sentences in the input discourse. If the cocoon does not
+exist, then the transfer rule fails.  If the cocoon does exist, then the
+presence of a proposition P within it is simply noted in the implementation by
+tagging a copy of P with (X,M).  When the cocoon is created, one or more <i>
+standard premises</i> are inserted.  For instance, if M is MIND AS PHYSICAL SPACE,
+then the cocoon will contain the Certain premise that X's mind is a physical
+space.  Also, other premises resulting directly from the input discourse can be
+inserted.  For instance, the discourse might say that a particular idea is in
+X's mind. We call these <i> discourse premises for the cocoon</i>. Currently all
+such premises are Certain.
+<P>
+Reasoning within the cocoon is as normal, with a small but important change to
+the rating-reconciliation scheme. The reasoning within the cocoon (i.e.
+mediating between (X,M)-tagged propositions) can use any of ATT-Meta's rules,
+but because of its goal-directedness it will ordinarily just use rules peculiar
+to the vehicle domain of M. Subgoals resulting from within-cocoon rule
+consideration can also be addressed (supported or attacked) by transfer rules.
+In turn, these rules can lead to rule consideration entirely outside the
+cocoon. In this way, metaphor-based reasoning is intimately and
+context-sensitively combined with non-metaphorical reasoning.
+<P>
+Knowledge outside the cocoon can conflict with knowledge inside, as pointed out
+in section 3. For instance, ATT-Meta may have the rule (R) that a mind is
+Certainly not a physical space. This rule's Certain conclusion in X's case
+would conflict with the standard premise mentioned above as being in the
+cocoon.  To handle this problem, we simply make the following change to the
+rating-reconciliation scheme as used within the cocoon: when considering a
+subgoal Q and its complement <IMG  ALIGN=BOTTOM ALT="" SRC="img154.gif"> where the preliminary rating
+for the latter is Certain, if Q has support (however indirectly) from a
+standard cocoon premise, discourse premise for the cocoon, and/or transfer
+rules, whereas <IMG  ALIGN=BOTTOM ALT="" SRC="img155.gif"> does not have such support, then the
+Certain rating for <IMG  ALIGN=BOTTOM ALT="" SRC="img156.gif"> is first downgraded to Presumed.
+(Notice that this does not affect cases where both or neither of Q,
+<IMG  ALIGN=BOTTOM ALT="" SRC="img157.gif"> have support of the type mentioned.)  As a result, the
+ordinary operation of ATT-Meta's rating reconciliation scheme can cause the
+downgrading of <IMG  ALIGN=BOTTOM ALT="" SRC="img158.gif"> to Suggested only, or its elimination.
+Elimination would happen with Q being that X's mind is a physical space, since
+this is a standard cocoon premise and therefore Certain. This defeats
+<IMG  ALIGN=BOTTOM ALT="" SRC="img159.gif">'s original Certain rating because that is first downgraded
+to Presumed.
+<P>
+Finally, observe that there may be more than one hypothesis (I.Q) for a given
+Q, because Q may be supported within SR in more than one way.  It could be that
+metaphor-based reasoning only downgrades one such hypothesis.  Then, the rating
+of the proposition [X believes-<IMG  ALIGN=BOTTOM ALT="" SRC="img160.gif"> Q] supported by rules of form R.Q is not,
+after all, affected. Also, in principle, an (I.Q) could have completely
+independent support from non-metaphorical, non-simulative reasoning, and this
+support might defeat the support from metaphor-based reasoning.
+<P>
+<BR> <HR><A NAME=tex2html106 HREF="node10.html"><IMG ALIGN=BOTTOM ALT="next" SRC="http://cbl.leeds.ac.uk/nikos/figs//next_motif.gif"></A>   <A NAME=tex2html104 HREF="kr-94.LA.html"><IMG ALIGN=BOTTOM ALT="up" SRC="http://cbl.leeds.ac.uk/nikos/figs//up_motif.gif"></A>   <A NAME=tex2html98 HREF="node8.html"><IMG ALIGN=BOTTOM ALT="previous" SRC="http://cbl.leeds.ac.uk/nikos/figs//previous_motif.gif"></A>         <BR>
+<B> Next:</B> <A NAME=tex2html107 HREF="node10.html"> CONCLUSION</A>
+<B>Up:</B> <A NAME=tex2html105 HREF="kr-94.LA.html">An Integrated Implementation of
+</A>
+<B> Previous:</B> <A NAME=tex2html99 HREF="node8.html"> BELIEF REASONING</A>
+<BR> <HR> <P>
+<BR> <HR>
+<P><ADDRESS>
+<I>John Barnden <BR>
+Fri Sep 15 16:01:18 MDT 1995</I>
+</ADDRESS>
+</BODY>
